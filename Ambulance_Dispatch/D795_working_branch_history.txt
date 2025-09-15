@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+<title>D795 Applied Algorithms and Reasoning:working_branch commits</title>
+<link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commits/working_branch?feed_token=glft-142bb6d4d3f4d42fa300a9d0f45726480d2a59dce1f05964b5b4f153a08acd74-15034230&amp;format=atom" rel="self" type="application/atom+xml"/>
+<link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commits/working_branch" rel="alternate" type="text/html"/>
+<id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commits/working_branch</id>
+<updated>2025-09-07T20:38:11-05:00</updated>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/7e78817ef0bb1e5d1920e33c166d9d8de0d081d2</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/7e78817ef0bb1e5d1920e33c166d9d8de0d081d2"/>
+  <title>Add requirements.txt for dependencies</title>
+  <updated>2025-09-07T20:38:11-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/a1745fc8c94c6203c12c76ba4c9556ef08a8988e</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/a1745fc8c94c6203c12c76ba4c9556ef08a8988e"/>
+  <title>Section H, I, and J complete</title>
+  <updated>2025-09-07T20:33:25-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/15f7599d59c2513686073940873ca569c5efcccb</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/15f7599d59c2513686073940873ca569c5efcccb"/>
+  <title>Section G complete</title>
+  <updated>2025-09-07T19:48:10-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/526edb8eb37b950df6c5d30217640aae9ca5d30c</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/526edb8eb37b950df6c5d30217640aae9ca5d30c"/>
+  <title>Section C complete</title>
+  <updated>2025-09-07T10:00:03-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/d492efc5d8a8e44e8397a9c299d4f9fa672bfa3f</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/d492efc5d8a8e44e8397a9c299d4f9fa672bfa3f"/>
+  <title>Complete parts D &amp; F (exception of providing a link)</title>
+  <updated>2025-09-07T08:46:03-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Removed GitLab key from README</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/43f23138c879728cb16041a4eed8177958593992</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/43f23138c879728cb16041a4eed8177958593992"/>
+  <title>Fix logic error in fastest_route</title>
+  <updated>2025-09-07T08:43:37-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/955659a259c386b03992f14ed179cd77b94ef50a</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/955659a259c386b03992f14ed179cd77b94ef50a"/>
+  <title>Complete fastest_route</title>
+  <updated>2025-09-06T18:46:40-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/ca47ab5a2cdd98cc889da39208229a72112075b1</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/ca47ab5a2cdd98cc889da39208229a72112075b1"/>
+  <title>Complete fastest_alt_route</title>
+  <updated>2025-09-06T17:37:53-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/c03f7d45ed4275d0c082261e3e5dc7856441a182</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/c03f7d45ed4275d0c082261e3e5dc7856441a182"/>
+  <title>Correct logic in fastest_alt_route</title>
+  <updated>2025-09-05T19:08:54-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Remove extra/guiding comments</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/69dcc4b1720b8e074f3c2841f89b527e066f2928</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/69dcc4b1720b8e074f3c2841f89b527e066f2928"/>
+  <title>Update fastest_alt_route</title>
+  <updated>2025-09-03T19:15:29-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/f7a974fda41e64d055dd37defeeae497faa7a2ca</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/f7a974fda41e64d055dd37defeeae497faa7a2ca"/>
+  <title>Add comments for next session</title>
+  <updated>2025-09-02T20:09:57-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/865c82f06631f519a961175b2194b89be2049849</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/865c82f06631f519a961175b2194b89be2049849"/>
+  <title>Refactor fastest_route</title>
+  <updated>2025-09-02T19:52:20-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Start work on recursive function</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/9b49b9ab9746cdd353483914aa0521487d1f2046</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/9b49b9ab9746cdd353483914aa0521487d1f2046"/>
+  <title>Add early exit logic</title>
+  <updated>2025-09-01T13:05:40-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/1052f07943eeddfedba0e5110111eeeefa12a2b6</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/1052f07943eeddfedba0e5110111eeeefa12a2b6"/>
+  <title>WIP: fastest_route</title>
+  <updated>2025-09-01T10:41:46-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/0f10a68201276b14ec2918a75efb365610017252</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/0f10a68201276b14ec2918a75efb365610017252"/>
+  <title>WIP: fastest_route</title>
+  <updated>2025-08-31T16:13:39-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/ce8e9b205676deb730e1e0fda43550437008d451</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/ce8e9b205676deb730e1e0fda43550437008d451"/>
+  <title>Add leading questions for next session</title>
+  <updated>2025-08-26T19:53:09-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/7b5c733611e501822d0d56ff6a29144f92276629</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/7b5c733611e501822d0d56ff6a29144f92276629"/>
+  <title>Copy project 1 for project 2</title>
+  <updated>2025-08-26T19:23:04-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Write rough outline for second algorithm</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/1f98d097fdaed38dd43e0d339e0f137afb6d9ab8</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/1f98d097fdaed38dd43e0d339e0f137afb6d9ab8"/>
+  <title>Add embedded counter</title>
+  <updated>2025-08-26T18:45:58-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Add logic to display algorithm runtime
+Complete section A &amp;amp; E with the exception of URL submission &amp;amp; branch history (to be included separately upon submission)</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/f5f0ff15e2c16d2ec30a6597c39533b700dcf170</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/f5f0ff15e2c16d2ec30a6597c39533b700dcf170"/>
+  <title>Complete fastest_route</title>
+  <updated>2025-08-26T18:04:16-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Complete update dispatch record
+Complete log file logic</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/a38856c4927853d4a75967f5019af89bda13338e</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/a38856c4927853d4a75967f5019af89bda13338e"/>
+  <title>Update fastest_route</title>
+  <updated>2025-08-25T19:58:31-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Complete logic for dispatch logs</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/fe26e5891519d9d32a1d4e5540d5a1eb9b36a826</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/fe26e5891519d9d32a1d4e5540d5a1eb9b36a826"/>
+  <title>Delete Logs folder</title>
+  <updated>2025-08-24T20:26:11-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Correct route order in fastest_route
+Add logic to write logs to csv</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/02187c0af288d12bf54a0f7ff757b4cfdba79915</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/02187c0af288d12bf54a0f7ff757b4cfdba79915"/>
+  <title>Update access token</title>
+  <updated>2025-08-24T19:15:18-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/7dbadccccf36c00d35073c86b0aef638b79b2aa0</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/7dbadccccf36c00d35073c86b0aef638b79b2aa0"/>
+  <title>Remove some test code</title>
+  <updated>2025-08-11T19:53:21-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Complete fastest_route_1
+Add Logs folder
+Start logic to write to csv</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/e2a904c846f3acbd311077c8b3274d4ec9ab181e</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/e2a904c846f3acbd311077c8b3274d4ec9ab181e"/>
+  <title>Remove unnecessary code</title>
+  <updated>2025-08-11T19:07:32-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Update fastest_route_1 for route path
+Add logic to create dispatch record</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/29a8f121b06a1935a0a3c164900ff0afdbbf6faa</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/29a8f121b06a1935a0a3c164900ff0afdbbf6faa"/>
+  <title>Add required comment</title>
+  <updated>2025-08-10T17:46:09-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/93a14c6377a0f9ec945c421178c55196e8065f20</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/93a14c6377a0f9ec945c421178c55196e8065f20"/>
+  <title>Add logic to fastest_route_1 for fastest call route</title>
+  <updated>2025-08-10T17:30:03-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/dc631c97fd9e11d1048551182b38e331a95aef1c</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/dc631c97fd9e11d1048551182b38e331a95aef1c"/>
+  <title>Add logic to rename invalid tuple attributes</title>
+  <updated>2025-08-10T13:10:54-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/0374952fa9a78b6a37ea43f9730780bc74ebd5ad</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/0374952fa9a78b6a37ea43f9730780bc74ebd5ad"/>
+  <title>Create placeholder function for algorithm 1</title>
+  <updated>2025-08-04T20:03:31-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/4887be9161b85872a927ed6a628d5fcab0f7b2df</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/4887be9161b85872a927ed6a628d5fcab0f7b2df"/>
+  <title>Add logic to sort calls by priority then order received</title>
+  <updated>2025-08-04T19:52:24-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/748d65f045504cea87bcca38c655b0d4d48a0569</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/748d65f045504cea87bcca38c655b0d4d48a0569"/>
+  <title>Create Prototype One project</title>
+  <updated>2025-07-31T20:11:31-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Clean file structure</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/5c8baadda943f116d89a4be8be719998d60e3223</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/5c8baadda943f116d89a4be8be719998d60e3223"/>
+  <title>Add csv files to project</title>
+  <updated>2025-07-31T14:06:04-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Complete part B</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/abb937b9624a052e88a8f45791ed2805d153823d</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/abb937b9624a052e88a8f45791ed2805d153823d"/>
+  <title>Add token info temporarily</title>
+  <updated>2025-07-31T13:04:43-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/767572b21cc28a3181cd4acb917d5fa9784d9741</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/767572b21cc28a3181cd4acb917d5fa9784d9741"/>
+  <title>Update README to display project description</title>
+  <updated>2025-07-31T12:59:49-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/512851b4eae19faf57ca625f518f171ef5897029</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d795-applied-algorithms-and-reasoning/-/commit/512851b4eae19faf57ca625f518f171ef5897029"/>
+  <title>Update file README.md</title>
+  <updated>2025-02-28T22:25:43+00:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/d005a6a9b44b3b13b94b421fb3213213084921ce0aea2e9e063d3081c8f0e59f?s=80&amp;d=identicon"/>
+  <author>
+    <name>Emilio Miller</name>
+    <email>emilio.miller@siriusfederal.com</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+</feed>
