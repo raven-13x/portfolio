@@ -325,4 +325,5 @@ than one rubric aspect.
     For Algorithm 2, my recommendation is to adapt the logic to be more dynamic. The algorithm is fast, and it is already dynamic. However, the initialization processes every possible destination
     regardless of if there's a call there. Especially in a live environment, it would make more sense
     to determine the fastest route for each location as it comes in. Once processed, the result would then be stored for later use. This would cut down on some of the resource costs while also minimizing processing time further. Essentially, we would trade some of the lightning fast lookups for reduced initialization overhead.
+
 </p>
