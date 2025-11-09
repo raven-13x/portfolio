@@ -238,15 +238,28 @@ Average runtime: 0.070091009 seconds
 
 <br>
 
-**H. Compare the performance of both algorithms and provide one recommendation for improving each algorithm based on your interpretation of the performance testing.**
+**H. Compare the performance of both algorithms and provide one recommendation for improving each 
+algorithm based on your interpretation of the performance testing.**
 
-Upon reviewing each algorithm's performance, it's clear that Algorithm 2 is significantly faster than Algorithm 1. Quantified, Algorithm 2 is 2.93 times faster than Algorithm 1 on average.
+Upon reviewing each algorithm's performance, it's clear that Algorithm 2 is significantly faster 
+than Algorithm 1. Quantified, Algorithm 2 is 2.93 times faster than Algorithm 1 on average.
 Despite the front-loaded processing cost in Algorithm 2, the resulting O(1) lookup is clearly
-worth that initialization cost. The driver for Algorithm 1's processing time lies in the locations network lookup. For each ambulance, the algorithm performs a query on the locations network for the exact staging location/call location combination. While that may sound like an O(1) operation, it's actually an O(n). In Pandas, the query operation scans the entire dataframe
-and evalues any statements against each.
+worth that initialization cost. The driver for Algorithm 1's processing time lies in the locations 
+network lookup. For each ambulance, the algorithm performs a query on the locations network for the 
+exact staging location/call location combination. While that may sound like an O(1) operation, it's 
+actually an O(n). In Pandas, the query operation scans the entire dataframeand evalues any statements 
+against each.
 
-For Algorithm 1, my recommendation is to utilize memoization here as well. To address the O(n) lookup time, I would utilize a routing table here as well to change lookup time from O(n) to O(1) per ambulance. Specifically, I would go as far as using a simplified version of the routing table built in Algorithm 2. In this case, there would be much less complexity and no recursion due to the assumption that the direct route is always fastest.
+For Algorithm 1, my recommendation is to utilize memoization here as well. To address the O(n) lookup 
+time, I would utilize a routing table here as well to change lookup time from O(n) to O(1) per ambulance. 
+Specifically, I would go as far as using a simplified version of the routing table built in Algorithm 2. 
+In this case, there would be much less complexity and no recursion due to the assumption that the direct 
+route is always fastest.
 
-For Algorithm 2, my recommendation is to adapt the logic to be more dynamic. The algorithm is fast, and it is already dynamic. However, the initialization processes every possible destination
+For Algorithm 2, my recommendation is to adapt the logic to be more dynamic. The algorithm is fast, 
+and it is already dynamic. However, the initialization processes every possible destination
 regardless of if there's a call there. Especially in a live environment, it would make more sense
-to determine the fastest route for each location as it comes in. Once processed, the result would then be stored for later use. This would cut down on some of the resource costs while also minimizing processing time further. Essentially, we would trade some of the lightning fast lookups for reduced initialization overhead.
+to determine the fastest route for each location as it comes in. Once processed, the result would 
+then be stored for later use. This would cut down on some of the resource costs while also minimizing 
+processing time further. Essentially, we would trade some of the lightning fast lookups for reduced 
+initialization overhead.
