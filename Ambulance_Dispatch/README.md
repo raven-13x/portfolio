@@ -205,30 +205,30 @@ essentially wasted.
 **G. Conduct performance testing of Prototype One and Prototype Two**
 
 #### Algorithm 1
-Runtime: 0.20305466651916504 seconds
-Runtime: 0.20597481727600098 seconds
-Runtime: 0.20253968238830566 seconds
-Runtime: 0.20573019981384277 seconds
-Runtime: 0.20605230331420898 seconds
-Runtime: 0.20773863792419434 seconds
-Runtime: 0.20897793769836426 seconds
-Runtime: 0.20707273483276367 seconds
-Runtime: 0.20510888099670410 seconds
-Runtime: 0.20361614227294922 seconds
+1. Runtime: 0.20305466651916504 seconds
+2. Runtime: 0.20597481727600098 seconds
+3. Runtime: 0.20253968238830566 seconds
+4. Runtime: 0.20573019981384277 seconds
+5. Runtime: 0.20605230331420898 seconds
+6. Runtime: 0.20773863792419434 seconds
+7. Runtime: 0.20897793769836426 seconds
+8. Runtime: 0.20707273483276367 seconds
+9. Runtime: 0.2051088809967041 seconds
+10. Runtime: 0.20361614227294922 seconds
 
 Average runtime: 0.2055866 seconds
 
 #### Algorithm 2
-Runtime: 0.07721400260925293 seconds
-Runtime: 0.06951045989990234 seconds
-Runtime: 0.06943893432617188 seconds
-Runtime: 0.06795430183410645 seconds
-Runtime: 0.07097434997558594 seconds
-Runtime: 0.06848669052124023 seconds
-Runtime: 0.06919670104980469 seconds
-Runtime: 0.07117438316345215 seconds
-Runtime: 0.06812095642089844 seconds
-Runtime: 0.06883931159973145 seconds
+1. Runtime: 0.07721400260925293 seconds
+2. Runtime: 0.06951045989990234 seconds
+3. Runtime: 0.06943893432617188 seconds
+4. Runtime: 0.06795430183410645 seconds
+5. Runtime: 0.07097434997558594 seconds
+6. Runtime: 0.06848669052124023 seconds
+7. Runtime: 0.06919670104980469 seconds
+8. Runtime: 0.07117438316345215 seconds
+9. Runtime: 0.06812095642089844 seconds
+10. Runtime: 0.06883931159973145 seconds
 
 Average runtime: 0.070091009 seconds
 
@@ -259,4 +259,5 @@ to determine the fastest route for each location as it comes in. Once processed,
 then be stored for later use. This would cut down on some of the resource costs while also minimizing 
 processing time further. Essentially, we would trade some of the lightning fast lookups for reduced 
 initialization overhead.
+
 
