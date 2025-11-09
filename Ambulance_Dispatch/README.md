@@ -136,7 +136,6 @@ prioritized based on the call_priority.csv <strong>then</strong> by call order (
 route to a call**
 
 #### Algorithm 1
-
 The algorithm used in Project 1 is a simple greedy algorithm. This algorithm operates under
 the assumption that the direct route provided from staging location to call location is the 
 fastest route for each ambulance. For each call, the algorithm iterates through each ambulance
@@ -165,7 +164,6 @@ provided route could cost vital minutes when responding to a serious emergency. 
 especially true in a scenario where the location_network.csv is constantly updating.
 
 #### Algorithm 2
-
 The algorithm used in Project 2 is a recursive pathfinding algorithm that utilizes memoization.
 When first called, the algorithm builds a routing table of the optimal ambulance and route for
 each possible location. This initialization explores the direct route (staging location -> call
@@ -207,7 +205,6 @@ essentially wasted.
 **G. Conduct performance testing of Prototype One and Prototype Two**
 
 #### Algorithm 1
-
 Runtime: 0.20305466651916504 seconds
 Runtime: 0.20597481727600098 seconds
 Runtime: 0.20253968238830566 seconds
@@ -222,7 +219,6 @@ Runtime: 0.20361614227294922 seconds
 Average runtime: 0.2055866 seconds
 
 #### Algorithm 2
-
 Runtime: 0.07721400260925293 seconds
 Runtime: 0.06951045989990234 seconds
 Runtime: 0.06943893432617188 seconds
@@ -263,3 +259,4 @@ to determine the fastest route for each location as it comes in. Once processed,
 then be stored for later use. This would cut down on some of the resource costs while also minimizing 
 processing time further. Essentially, we would trade some of the lightning fast lookups for reduced 
 initialization overhead.
+
