@@ -4,9 +4,9 @@ This repo consists of both personal and academic projects that I feel represent 
 <br>
 
 ## In Progress - AI/ML_Alzheimers
-Note: Academic project, so commits aren't being made directly to this repo
+See below for details
 
-<br>
+Note: Academic project, so commits aren't being made directly to this repo
 
 ## Introduction
 As a data scientist you will select a problem from the attached “Scenario List,” build a suitable AI
@@ -14,12 +14,8 @@ or ML model, and automate the entire model lifecycle from development to deploym
 the Cloud Academy Lab Environment found in the Web links section. The project documentation should 
 list APIs, SDKs, and libraries used.
 
-<br>
-
 ## Scenario
 The individual scenario will be found in the “Scenario List” in the Supporting Documents section.
-
-<br>
 
 ## Requirements
 You must use the rubric to direct the creation of your submission because it provides detailed 
@@ -27,8 +23,8 @@ criteria that will be used to evaluate your work. Each requirement below may be 
 than one rubric aspect. The rubric aspect titles may contain hyperlinks to relevant portions of the 
 course.
 
-A. Create your own subgroup and project in GitLab using the provided "GitLab" and the "GitLab How-To
-" web links by doing the following:
+**A. Create your own subgroup and project in GitLab using the provided "GitLab" and the "GitLab How-To
+" web links by doing the following:**
    - Clone the Project to the IDE
    - Commit with a message and push when you complete each requirement listed in parts B-G
    - Submit a copy of the GitLab repository URL in the "Comments to Evaluator" section when you submit
@@ -42,50 +38,37 @@ not yet complete
 Note: Wait until you have completed all the following prompts before you create your copy of the 
 repository branch history
 
-<br>
-
-B. Describe which problem you want to solve within the scenario from the attached "Scenario List"
-including the following:
+**B. Describe which problem you want to solve within the scenario from the attached "Scenario List"
+including the following:**
    - Reasoning behind your choice
    - Goal in approaching the problem with artificial intelligence and machine learning
 
-<br>
-
-C. Prepare your data using the dataset that corresponds to your chosen problem by doing the 
-following:
+**C. Prepare your data using the dataset that corresponds to your chosen problem by doing the 
+following:**
    - Normalize and clean the data
    - Categorize the data using clustering where appropriate
 
-<br>
-
-D. Identify the algorithm you will use to build yoru artificial intelligence and machine learning
-model
+**D. Identify the algorithm you will use to build yoru artificial intelligence and machine learning
+model**
    - Describe which other algorithms you considered and the pros and cons of each
 
-<br>
+**E. Discuss how you would improve the model if the size of the dataset was increased or if you had
+more computing power**
 
-E. Discuss how you would improve the model if the size of the dataset was increased or if you had
-more computing power
+**F. Discuss how the performance and efficiency of the model will be optimized**
 
-F. Discuss how the performance and efficiency of the model will be optimized
-
-G. Identify three potential ethical issues in your chosen model
+**G. Identify three potential ethical issues in your chosen model**
    - Describe which concerns need to be mitigated in the dataset before proceeding
    - Explain the strategies for mitigating these issues in the dataset
    - Analyze the ethics of the model design
    - Explain the strategies for mitigating these issues in the model design
 
-<br>
+**H. Acknowledge sources, using APA-formatted in-text citations and references for content that is
+quoted, paraphrased, or summarized**
 
-H. Acknowledge sources, using APA-formatted in-text citations and references for content that is
-quoted, paraphrased, or summarized
-
-I. Demonstrate professional communication in the content and presentation of your submission
-
-<br>
+**I. Demonstrate professional communication in the content and presentation of your submission**
 
 ## Written Responses
-
 **B. Describe which problem you want to solve within the scenarios from the attached "Scenario 
 List" including the reasoning behind your choice and the goal in approaching the problem with
 artificial intelligence and machine learning**
