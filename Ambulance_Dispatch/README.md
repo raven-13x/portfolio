@@ -6,8 +6,6 @@ location, and 2. selecting the appropriate hospital to handle the call. Your pro
  four phases comprised of written material and code. The project documentation should list APIs, 
  SDKs and libraries used.
 
- <br>
-
 ## Scenario
 In this performance assessment, you will implement two separate Python ambulance dispatch prototypes
  that differ only in the algorithms identified in part C to find the fastest route to a call 
@@ -38,15 +36,13 @@ In this performance assessment, you will implement two separate Python ambulance
    - Collect and display the total execution time spent finding the fastest route for all
      dispatched calls.
 
-<br>
-
 ## Requirements
 You must use the rubric to direct the creation of your submission because it provides detailed 
 criteria that will be used to evaluate your work. Each requirement below may be evaluated by more 
 than one rubric aspect.
 
-A. Create your own subgroup and project in GitLab using the provided web link and the "GitLab
-How-To" web link by doing the following:
+**A. Create your own subgroup and project in GitLab using the provided web link and the "GitLab
+How-To" web link by doing the following:**
    - Clone the project to the IDE.
    - Commit with a message and push when you complete each requirement listed in parts E-F.
    - Submit a copy of the GitLab repository URL in the "Comments to Evaluator" section when
@@ -58,28 +54,22 @@ is not yet complete.
 Note: Wait until you have completed all the following prompts before you create your copy of
 the repository branch history.
 
-<br>
-
-B. Describe the design of the ambulance dispatch system including the following:
+**B. Describe the design of the ambulance dispatch system including the following:**
    - Discuss the overall operation of the application.
    - Delineate how the application will process the simulation files.
    - Describe how the application will manage call priorities.
 
-<br>
-
-C. Identify two different algorithms, one for each prototype, that you will use to find the
-fastest route to a call.
+**C. Identify two different algorithms, one for each prototype, that you will use to find the
+fastest route to a call.**
    - Explain the operation of each algorithm that can be used to calculate the fastest route.
    - Describe how each algorithm will be used in the application.
    - Calculate Big O time complexity and the Big O space complexity of each algorithm.
    - Explain the advantages and disadvantages of each algorithm.
 
-<br>
+**D. Construct two ambulance dispatch prototypes that differ only in the algorithms defined in
+Part C.**
 
-D. Construct two ambulance dispatch prototypes that differ only in the algorithms defined in
-Part C.
-
-E. Implement Prototype One by doing the following:
+**E. Implement Prototype One by doing the following:**
    - Create a Python project named [StudentID]_D795_PT1 using PyCharm in the virtual machine.
    - Implement each of the requirements listed in the scenario using the first algorithm
      designed in Part C.
@@ -87,9 +77,7 @@ E. Implement Prototype One by doing the following:
    - Provide a link in the Student Submission files to the completed Prototype One project
      in the GitLab repository.
 
-<br>
-
-F. Implement Prototype Two by doing the following:
+**F. Implement Prototype Two by doing the following:**
    - Create a Python project named [StudentID]_D795_PT2 using PyCharm in the virtual machine.
    - Clone the Prototype One project in its entirety.
    - Implement each of the requirements listed in the scenario using the second algorithm
@@ -98,29 +86,21 @@ F. Implement Prototype Two by doing the following:
    - Provide a link in the Student Submission files to the completed Prototype Two project
      in the GitLab repository
 
-<br>
-
-G. Conduct performance testing of Prototype One and Prototype Two by doing the following:
+**G. Conduct performance testing of Prototype One and Prototype Two by doing the following:**
    - Execute Prototype One 10 times and calculate and present the average execution time
      for finding the fastest route algorithm.
    - Execute Prototype Two 10 times and calculate and present the average execution time
      for finding the fastest route algorithm.
 
-<br>
-
-H. Using the metrics calculated in Part G, do the following:
+**H. Using the metrics calculated in Part G, do the following:**
    - Compare the performance of both algorithms.
    - Provide one recommendation for improving each algorithm based on your interpretation
      of the performance testing.
 
-<br>
+**I. Acknowledge sources, using APA-formatted in-text citation and references, for content
+that is quoted, paraphrased, or summarized.**
 
-I. Acknowledge sources, using APA-formatted in-text citation and references, for content
-that is quoted, paraphrased, or summarized.
-
-J. Demonstrate professional communication in the content and presentation of your submission.
-
-<br>
+**J. Demonstrate professional communication in the content and presentation of your submission.**
 
 ## Written Responses
 **B. Describe the design of the ambulance dispatch system**
@@ -129,8 +109,6 @@ This Python prorgam automates emergency call dispatch. At a high level, the prog
 to dispatch an ambulance to a call based on call priority and estimated response time. All data 
 is stored in csv files which the program will process using the Pandas package. Calls are 
 prioritized based on the call_priority.csv <strong>then</strong> by call order (oldest to newest).
-
-<br>
 
 **C. Identify two different algorithms, one for each prototype, that you will use to find the fastest
 route to a call**
@@ -200,8 +178,6 @@ well. There's also the very real possibility that we won't use some or many of t
 routes; if tonight's calls are all on one side of the city, then much of the front-loaded processing is 
 essentially wasted.
 
-<br>
-
 **G. Conduct performance testing of Prototype One and Prototype Two**
 
 #### Algorithm 1
@@ -213,7 +189,7 @@ essentially wasted.
 6. Runtime: 0.20773863792419434 seconds
 7. Runtime: 0.20897793769836426 seconds
 8. Runtime: 0.20707273483276367 seconds
-9. Runtime: 0.2051088809967041 seconds
+9. Runtime: 0.20510888099670410 seconds
 10. Runtime: 0.20361614227294922 seconds
 
 Average runtime: 0.2055866 seconds
@@ -231,8 +207,6 @@ Average runtime: 0.2055866 seconds
 10. Runtime: 0.06883931159973145 seconds
 
 Average runtime: 0.070091009 seconds
-
-<br>
 
 **H. Compare the performance of both algorithms and provide one recommendation for improving each 
 algorithm based on your interpretation of the performance testing.**
@@ -259,5 +233,3 @@ to determine the fastest route for each location as it comes in. Once processed,
 then be stored for later use. This would cut down on some of the resource costs while also minimizing 
 processing time further. Essentially, we would trade some of the lightning fast lookups for reduced 
 initialization overhead.
-
-
