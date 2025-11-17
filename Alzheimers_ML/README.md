@@ -1,5 +1,3 @@
-## D797 - ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING FOUNDATIONS FOR COMPUTER SCIENTISTS
-
 ## Introduction
 As a data scientist you will select a problem from the attached “Scenario List,” build a suitable AI
 or ML model, and automate the entire model lifecycle from development to deployment. You will use 
@@ -147,4 +145,5 @@ Three potential ethical issues to address are bias, privacy, and transparency/ex
      and/or charts. The larger issue is that unsupervised learning is a black box. We can't know 
      with 100% accuracy now the clusters were identified. To address this, we have to remember that 
      there isn't a "right" answer in the world of unsupervised learning. The results are meant to 
+
      inform further exploration rather than make a groundbreaking discovery.
