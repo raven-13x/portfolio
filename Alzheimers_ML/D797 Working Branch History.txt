@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+<title>D797 Artificial Intelligence and Machine Learning Foundations for Computer Scientists:working commits</title>
+<link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commits/working?feed_token=glft-ac47b3fb45164b7e099406969666bd65eb0cc41dd6a12ce7893dca4f99d6a77a-15034230&amp;format=atom" rel="self" type="application/atom+xml"/>
+<link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commits/working" rel="alternate" type="text/html"/>
+<id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commits/working</id>
+<updated>2025-11-15T15:37:44-06:00</updated>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/d6ba3719ac49ff268cf202d297932b08de2b32a4</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/d6ba3719ac49ff268cf202d297932b08de2b32a4"/>
+  <title>Move data and scripts to folder for organization</title>
+  <updated>2025-11-15T15:37:44-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Create requirements.txt</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/9d7737406141f01e5e135f992e9d749f1004de7e</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/9d7737406141f01e5e135f992e9d749f1004de7e"/>
+  <title>Parts F and G completed</title>
+  <updated>2025-11-15T15:23:34-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Updated comments</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/247f30c4d486c86a787168922478340c5da65208</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/247f30c4d486c86a787168922478340c5da65208"/>
+  <title>Part E complete</title>
+  <updated>2025-11-14T17:29:15-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/2fd9141d8f220d57d0c107d5d177624a7f05257a</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/2fd9141d8f220d57d0c107d5d177624a7f05257a"/>
+  <title>Implement K-Prototypes</title>
+  <updated>2025-11-14T16:57:26-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Add basic result summary</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/b12a9c508085238c7dcbe6a3ebe88015d6dfb364</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/b12a9c508085238c7dcbe6a3ebe88015d6dfb364"/>
+  <title>Part D complete.</title>
+  <updated>2025-11-14T13:17:54-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/59e53e4107dd30cb61a79575dd58442b0dcbb9f9</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/59e53e4107dd30cb61a79575dd58442b0dcbb9f9"/>
+  <title>Work on Part D</title>
+  <updated>2025-11-13T19:36:20-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/4c9c407cb8f5744d11adc9bdc4e4e79e4735b7ff</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/4c9c407cb8f5744d11adc9bdc4e4e79e4735b7ff"/>
+  <title>Complete Part C</title>
+  <updated>2025-11-13T18:09:28-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/cd686ecc1e7f10627b2baa89035332fec890141c</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/cd686ecc1e7f10627b2baa89035332fec890141c"/>
+  <title>Update cleaning logic</title>
+  <updated>2025-11-12T20:02:53-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">- specify UTF8 encoding
+- account for 0 values for RSE
+- group similar actions/blocks</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/98847dbb4b886d102c721bdeedabea3334e1c5e4</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/98847dbb4b886d102c721bdeedabea3334e1c5e4"/>
+  <title>Update README formatting</title>
+  <updated>2025-11-09T16:53:53-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Add final "filter" logic for cleaning</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/05ff88fc119534d3ac54cb9dbae53a90ebaf2630</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/05ff88fc119534d3ac54cb9dbae53a90ebaf2630"/>
+  <title>Work on Part C</title>
+  <updated>2025-11-04T19:27:16-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Rename cleaned csv for clarity</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/a0c3cb61b78e292d2ed48780c70491a0d1a0ae97</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/a0c3cb61b78e292d2ed48780c70491a0d1a0ae97"/>
+  <title>Complete Part B (revised)</title>
+  <updated>2025-11-02T17:30:10-06:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Start working on Part C</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/42f190241f07d57e12fd656b6d22cec91144eac4</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/42f190241f07d57e12fd656b6d22cec91144eac4"/>
+  <title>Update README to full markdown</title>
+  <updated>2025-10-29T20:05:56-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Add original dataset file</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/853eb7675b04f078cf1a60b25898c43018b575a9</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/853eb7675b04f078cf1a60b25898c43018b575a9"/>
+  <title>Complete Part B</title>
+  <updated>2025-10-29T10:49:45-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/efc2b08bd886eccd6b734defd9492fcaf5099d81</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/efc2b08bd886eccd6b734defd9492fcaf5099d81"/>
+  <title>Write partial response to section B</title>
+  <updated>2025-10-06T19:50:12-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/8e9d4dd314218ff0fed72bd1166a0a19f66170a4</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/8e9d4dd314218ff0fed72bd1166a0a19f66170a4"/>
+  <title>Create venv and omit from repo</title>
+  <updated>2025-10-06T17:47:54-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/59274352ffca12edaa4c4eaefab974b83eaa62e1</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/59274352ffca12edaa4c4eaefab974b83eaa62e1"/>
+  <title>Add project details to README</title>
+  <updated>2025-10-05T13:44:12-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html">Remove access key</summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/aa513c4ace7e80dca9eb4d7434d991b4114f6638</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/aa513c4ace7e80dca9eb4d7434d991b4114f6638"/>
+  <title>Add access key to README (temp)</title>
+  <updated>2025-10-05T12:45:45-05:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/671a8ebd6a61f09ee65d7824f86e7d8c19898a3cde4406319fa7a9532a659fb1?s=80&amp;d=identicon"/>
+  <author>
+    <name>Taylor Lyles</name>
+    <email>tlyle30@wgu.edu</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+<entry>
+  <id>https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/bf6e1428e7b9736400853aa77648911b6250d033</id>
+  <link href="https://gitlab.com/wgu-gitlab-environment/student-repos/tlyle30/d797-artificial-intelligence-and-machine-learning-foundations-for-computer-scientists/-/commit/bf6e1428e7b9736400853aa77648911b6250d033"/>
+  <title>Update file README.md</title>
+  <updated>2025-02-28T22:28:49+00:00</updated>
+  <media:thumbnail width="40" height="40" url="https://secure.gravatar.com/avatar/d005a6a9b44b3b13b94b421fb3213213084921ce0aea2e9e063d3081c8f0e59f?s=80&amp;d=identicon"/>
+  <author>
+    <name>Emilio Miller</name>
+    <email>emilio.miller@siriusfederal.com</email>
+  </author>
+  <summary type="html"></summary>
+</entry>
+</feed>
