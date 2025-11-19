@@ -1,0 +1,78 @@
+﻿@page "/coursework"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Coursework | SWCSC Portal</PageTitle>
+
+<MudText Align="Align.Center" Typo="Typo.h4" Class="mt-6">@className</MudText>
+<MudDataGrid T="Coursework" Items="@ClassCoursework" Filterable="true" Bordered="true" ReadOnly="readOnly" Dense="true" QuickFilter="Search" Class="mt-6"
+             StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@UpdateCoursework" EditTrigger="@DataGridEditTrigger.OnRowClick" RowsPerPage="50">
+  <ToolBarContent>
+    @if (Global.CurrUser != null && Global.CurrUser.Role == "Teacher")
+    {
+      <MudButton Class="mt-8 mb-4 mr-4" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnAddCourseworkClicked">Add Coursework</MudButton>
+    }
+    <MudTooltip Text="Refresh List">
+      <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="GetClassCoursework"></MudIconButton>
+    </MudTooltip>
+    <MudSpacer />
+    <MudSpacer />
+    <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+  </ToolBarContent>
+  <Columns>
+    <PropertyColumn Property="x => x.Type">
+      <EditTemplate>
+        <MudSelect T="string" @bind-Value="selectedCoursework.Type" Label="Type" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4">
+          <MudSelectItem T="string" Value="@("Homework")">Homework</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Quiz")">Quiz</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Test")">Test</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Description" Title="Coursework Name">
+      <CellTemplate>
+        @if (Global.CurrUser != null && Global.CurrUser.Role == "Student")
+        {
+          <MudText>@context.Item.Description</MudText>
+        }
+        else if (Global.CurrUser != null && Global.CurrUser.Role == "Teacher")
+        {
+          <MudNavLink OnClick="() => ViewGrades(context.Item.Id)" Class="pl-n7">@context.Item.Description</MudNavLink>
+        }
+      </CellTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.DueDate" Title="Due Date" />
+    <PropertyColumn Property="x => x.MaxScore" Title="Max Score"/>
+
+    @if (Global.CurrUser != null && Global.CurrUser.Role == "Teacher")
+    {
+      <PropertyColumn Property="x => x.Created" />
+      <PropertyColumn Property="x => x.LastUpdate" />
+      <PropertyColumn Property="x => x.LastUpdate" Title="" Filterable="false"> <!-- Works around cell misalignment using template column -->
+        <CellTemplate>
+          <MudTooltip Text="Delete coursework">
+            <MudIconButton Variant="Variant.Filled" Color="Color.Error" Size="@Size.Medium" Icon="@Icons.Material.Outlined.Delete" OnClick="() => DeleteCoursework(context.Item)" />
+          </MudTooltip>
+        </CellTemplate>
+      </PropertyColumn>
+    }
+    else if (Global.CurrUser != null && Global.CurrUser.Role == "Student")
+    {
+      <TemplateColumn Title="Score">
+        <CellTemplate>
+          <MudText>@GetScore(context.Item.Id).Result</MudText>
+        </CellTemplate>
+      </TemplateColumn>
+      <TemplateColumn Title="Grade">
+        <CellTemplate>
+          <MudText>@GetGrade(context.Item).Result</MudText>
+        </CellTemplate>
+      </TemplateColumn>
+    }
+  </Columns>
+  <PagerContent>
+    <MudDataGridPager />
+  </PagerContent>
+</MudDataGrid>

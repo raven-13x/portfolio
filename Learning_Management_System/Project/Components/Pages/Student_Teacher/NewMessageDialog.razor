@@ -1,0 +1,94 @@
+﻿@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+
+<MudDialog>
+  <DialogContent>
+    <MudSelect T="int" @bind-Value="newMessage.RecipientId" Label="Recipient" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4">
+      @foreach (User recipient in Global.AvailableRecipients)
+      {
+        <MudSelectItem T="int" Value="@(recipient.Id)">@($"{recipient.FirstName} {recipient.LastName}")</MudSelectItem>
+      }
+    </MudSelect>
+    <MudTextField T="string" @bind-Value=newMessage.Content Placeholder="Type your message here..."></MudTextField>
+  </DialogContent>
+  <DialogActions>
+    <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertMessage">Send</MudButton>
+  </DialogActions>
+</MudDialog>
+
+@code {
+  [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+  List<Message> AllMessages { get; set; } = new List<Message>();
+  Message newMessage = new Message();
+
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      await base.OnInitializedAsync();
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      await GetAllMessages();
+      newMessage.Id = AllMessages.Count == 0 ? 1 : await context.Message.MaxAsync(m => m.Id) + 1;
+      newMessage.SenderId = Global.CurrUser.Id;
+      newMessage.Flagged = "No";
+      newMessage.Read = "No";
+
+      if (Global.CurrUser.Role == "Teacher") { await Global.GetRecipientsTeacher(D424DataContextFactory); }
+      else { await Global.GetRecipientsStudent(D424DataContextFactory); }
+    }
+    catch (Exception ex) // Potentially not needed; Leaving as a safeguard
+    {
+      Snackbar.Add("Something went wrong. Please contact your site admin.", Severity.Error);
+      await Global.Log(D424DataContextFactory, "ERROR", $"NewMessageDialog Init: {ex.Message}");
+    }
+  }
+  async Task InsertMessage()
+  {
+    try
+    {
+      if (newMessage.RecipientId == 0) 
+      {
+        Snackbar.Add("You must select a valid recipient. If the intended recipient is not shown, there is an existing chat, or the recipient is unavailable.", Severity.Warning);
+        return; 
+      }
+      if (string.IsNullOrEmpty(newMessage.Content))
+      {
+        Snackbar.Add("Please include a message before clicking send.", Severity.Warning);
+        return;
+      }
+
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      newMessage.Sent = DateTime.Now;
+      context.Message.Add(newMessage);
+      await context.SaveChangesAsync();
+      MudDialog.Close();
+    }
+    catch (Exception ex)
+    {
+      Snackbar.Add($"Something went wrong. Please contact your site admin.", Severity.Error);
+      await Global.Log(D424DataContextFactory, "ERROR", $"InsertMessage: {ex.Message}");
+    }
+  }
+  void Cancel() => MudDialog.Cancel();
+  async Task GetAllMessages()
+  {
+    try
+    {
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+
+      AllMessages?.Clear();
+      var messages = await context.Message.ToListAsync();
+
+      foreach (var message in messages)
+      {
+        if (AllMessages.Contains(message)) { continue; }
+        AllMessages.Add(message);
+      }
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"GetAllMessages: {ex.Message}");
+    }
+  }
+}

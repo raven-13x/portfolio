@@ -1,0 +1,75 @@
+﻿@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+
+<MudDialog>
+  <DialogContent>
+    <MudSelect T="string" @bind-Value="newCoursework.Type" Label="Type" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="string" Value="@("Homework")">Homework</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Quiz")">Quiz</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Test")">Test</MudSelectItem>
+    </MudSelect>
+    <MudTextField @bind-Value="newCoursework.Description" Label="Description" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudDatePicker @bind-Date="newCoursework.DueDate" Label="Due Date" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4"></MudDatePicker>
+    <MudNumericField @bind-Value="newCoursework.MaxScore" Label="Max Score" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4"></MudNumericField>
+  </DialogContent>
+  <DialogActions>
+    <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertCoursework">Add</MudButton>
+  </DialogActions>
+</MudDialog>
+
+@code {
+  [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+  List<Coursework> AllCoursework { get; set; } = new List<Coursework>();
+  Coursework newCoursework = new Coursework();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    await GetAllCoursework();
+    newCoursework.Id = AllCoursework.Count == 0 ? 1 : await context.Coursework.MaxAsync(c => c.Id) + 1;
+    newCoursework.ClassId = Global.SelectedClassId_Coursework;
+    newCoursework.GradingPeriod = Global.SelectedClassGradingPeriod;
+    newCoursework.Year = Global.SelectedClassYear;
+  }
+  async void InsertCoursework()
+  {
+    try
+    {
+      if (string.IsNullOrWhiteSpace(newCoursework.Type)) { Snackbar.Add("The coursework must have a type..", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newCoursework.Description)) { Snackbar.Add("The coursework must have a description.", Severity.Error); return; }
+      if (newCoursework.DueDate == null) { Snackbar.Add("The coursework must have a due date."); return; }
+      if (newCoursework.MaxScore == 0) { Snackbar.Add("The coursework must have a maximum score greater than 0.", Severity.Error); return; }
+      
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      newCoursework.Created = DateTime.Now;
+      newCoursework.LastUpdate = DateTime.Now;
+
+      context.Coursework.Add(newCoursework);
+      await context.SaveChangesAsync();
+      MudDialog.Close();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"InsertCoursework: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin.", Severity.Error);
+    }
+  }
+  async Task GetAllCoursework()
+  {
+    try
+    {
+      AllCoursework.Clear();
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      AllCoursework = await context.Coursework.ToListAsync();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"GetAllCoursework: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin.", Severity.Error);
+      MudDialog.Close();
+    }
+  }
+  void Cancel() => MudDialog.Cancel();
+}

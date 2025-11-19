@@ -1,0 +1,76 @@
+﻿@page "/messages"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Messages | SWCSC Portal</PageTitle>
+
+<MudGrid Class="mt-2">
+  <MudItem xs="12" sm="3">
+    <MudPaper Height="90vh">
+      <MudToolBar>
+        <MudText Align="Align.Center" Typo="Typo.h6">Recents</MudText>
+        <MudSpacer/>
+        <MudSpacer/>
+        <MudIconButton Icon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnNewMessageClicked"/>
+      </MudToolBar>
+      <MudList T="string" Clickable="true">
+        @if (Chats.Count == 0)
+        {
+          <MudText Align="Align.Center" Class="mt-16">Nothing to show here</MudText>
+        }
+        else
+        {
+          @foreach (KeyValuePair<User, Message> kvp in Chats)
+          {
+            <MudListItem Class="pl-6" OnClick="() => ShowHistory(kvp.Key.Id)">
+              <MudText Style="font-weight: bold">@($"{kvp.Key.FirstName} {kvp.Key.LastName}")</MudText>
+              @if (Global.CurrUser != null && kvp.Value.SenderId == Global.CurrUser.Id)
+              {
+                <MudText>@($"You: {kvp.Value.Content}")</MudText>
+              }
+              else
+              {
+                if (Global.CurrUser != null && kvp.Value.Read == "No" && kvp.Value.RecipientId == Global.CurrUser.Id)
+                {
+                  <MudText Style="font-weight: bold">@kvp.Value.Content</MudText>
+                }
+                else { <MudText>@kvp.Value.Content</MudText> }
+              }
+            </MudListItem>
+          }
+        }
+      </MudList>
+    </MudPaper>
+  </MudItem>
+  <MudItem xs="12" sm="9">
+    <MudPaper Height="90vh" >
+      <MudPaper Height="92%" Elevation="0" Outlined="true" Class="ml-3 mr-3" Style="@($"border: none")">
+        <MudList Clickable="true" T="string">
+          @foreach (var message in ChatHistory)
+          {
+            if (Global.CurrUser != null && message.SenderId == Global.CurrUser.Id)
+            {
+              <MudListItem>
+                <MudText Align="Align.Right" Class="mr-6">@message.Content</MudText>
+                <MudText Align="Align.Right" Class="mr-6" Style="font-size: 12px">@message.Sent</MudText>
+              </MudListItem>
+            }
+            else
+            {
+              <MudListItem Value="message" OnClick="() => FlagMessage(message)">
+                <MudText Align="Align.Left" Class="ml-6">@message.Content</MudText>
+                <MudText Align="Align.Left" Class="ml-6" Style="font-size: 12px">@message.Sent</MudText>
+              </MudListItem>
+            }
+          }
+        </MudList>
+      </MudPaper>
+      <MudToolBar Class="mt-n4">
+        <MudTextField T="string" @bind-Value="messageContent" Placeholder="Type your message here..." Disabled="messageFieldDisabled" Style="@($"background:{Colors.Gray.Lighten5};")"></MudTextField>
+        <MudButton Variant="Variant.Filled" OnClick="SendMessage" Disabled="sendButtonDisabled" StartIcon="@Icons.Material.Filled.Send" Class="mt-4 ml-5" Color="Color.Tertiary">Send</MudButton>
+      </MudToolBar>
+    </MudPaper>
+  </MudItem>
+</MudGrid>

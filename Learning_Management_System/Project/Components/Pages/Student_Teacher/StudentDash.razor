@@ -1,0 +1,112 @@
+﻿@page "/studentdashboard"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Student Dashboard | SWCSC Portal</PageTitle>
+
+<MudGrid Class="mt-6">
+  <MudItem xs="3">
+    <MudPaper Class="p-4">
+      <MudText Align="Align.Center" Typo="Typo.h6" Class="mb-7">Attendance (Current year)</MudText>
+      <MudText Class="mb-7">Present: @presentCount</MudText>
+      <MudText Class="mb-7">Tardy: @tardyCount</MudText>
+      <MudText Class="mb-7">Absent: @absentCount</MudText>
+      <MudText Class="mb-7">Excused: @excusedCount</MudText>
+    </MudPaper>
+  </MudItem>
+  <MudItem xs="9">
+    <MudText Class="mb-2" Typo="Typo.h6">Announcements</MudText>
+    <MudDataGrid T="Announcement" Items="Announcements" ReadOnly="true" Filterable="true" Bordered="true" QuickFilter="Search">
+      <ToolBarContent>
+        <MudTooltip Text="Refresh List">
+          <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="GetAnnouncements"></MudIconButton>
+        </MudTooltip>
+        <MudSpacer />
+        <MudSpacer />
+        <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+      </ToolBarContent>
+      <Columns>
+        <PropertyColumn Property="x => x.UserId" Title="User">
+          <CellTemplate>
+            @($"{(Global.AllUsers.Where(u => u.Id == context.Item.UserId).First()).FirstName} {(Global.AllUsers.Where(u => u.Id == context.Item.UserId).First()).LastName}")
+          </CellTemplate>
+        </PropertyColumn>
+        <PropertyColumn Property="x => x.Message" />
+        <PropertyColumn Property="x => x.Created" />
+      </Columns>
+      <PagerContent>
+        <MudDataGridPager />
+      </PagerContent>
+    </MudDataGrid>
+  </MudItem>
+</MudGrid>
+
+@code {
+  ObservableCollection<Announcement> Announcements = new ObservableCollection<Announcement>();
+  int presentCount;
+  int tardyCount;
+  int absentCount;
+  int excusedCount;
+  string? searchInput;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      if (Global.CurrUser == null || Global.CurrUser.Role != "Student") 
+      { 
+        Global.MainContentClass = "signInBackground";
+        Global.DrawerOpen = false;
+        Global.DrawerClass = "invisible";
+        Global.AppBarClass = "invisible";
+        Global.MainContentWidth = MaxWidth.Small;
+        nav.NavigateTo("", true);
+      }
+      else
+      {
+        Global.MainContentClass = "";
+        Global.DrawerOpen = true;
+        Global.DrawerClass = "visible";
+        Global.AppBarClass = "visible";
+        await RefreshData();
+      }
+    }
+  }
+  async Task RefreshData()
+  {
+    await GetAnnouncements();
+    await GetAttendanceStats();
+    await Global.GetUnreadMessages(D424DataContextFactory);
+    StateHasChanged();
+  }
+  async Task GetAnnouncements()
+  {
+    Announcements.Clear();
+    await Global.GetAllUsers(D424DataContextFactory);
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    var announcementsList = await context.Announcement.Where(a => a.Visibility == "All").OrderBy(a => a.Created).ToListAsync();
+    foreach (var announcement in announcementsList) { Announcements.Add(announcement); }
+  }
+  async Task GetAttendanceStats()
+  {
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    presentCount = (await context.Attendance.Where(a => a.Status == "Present" && a.StudentId == Global.CurrUser.Id && a.Date.Year == DateTime.Today.Year).ToListAsync()).Count();
+    tardyCount = (await context.Attendance.Where(a => a.Status == "Tardy" && a.StudentId == Global.CurrUser.Id && a.Date.Year == DateTime.Today.Year).ToListAsync()).Count();
+    absentCount = (await context.Attendance.Where(a => a.Status == "Absent" && a.StudentId == Global.CurrUser.Id && a.Date.Year == DateTime.Today.Year).ToListAsync()).Count();
+    excusedCount = (await context.Attendance.Where(a => a.Status == "Excused" && a.StudentId == Global.CurrUser.Id && a.Date.Year == DateTime.Today.Year).ToListAsync()).Count();
+  }
+  Func<Announcement, bool> Search => x =>
+    {
+      if (string.IsNullOrWhiteSpace(searchInput))
+      {
+        return true;
+      }
+      if (x.Message.Contains(searchInput.Trim(), StringComparison.OrdinalIgnoreCase))
+      {
+        return true;
+      }
+      return false;
+    };
+}

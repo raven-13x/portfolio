@@ -1,0 +1,179 @@
+﻿@page "/teacherdashboard"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Teacher Dashboard | SWCSC Portal</PageTitle>
+
+<MudGrid Class="mt-6">
+  <MudItem xs="12" sm="3">
+    <MudPaper Class="p-4 mb-7">
+      <MudText Align="Align.Center" Typo="Typo.h6" Class="mb-7">Students with 5+ Tardies</MudText>
+      <MudList T="string">
+        @if (tardyList.Count == 0)
+        {
+          <MudText Align="Align.Center">No data</MudText>
+        }
+        else
+        {
+          foreach (var tardy in tardyList)
+          {
+            <MudListItem>@($"{tardy.Key}: {tardy.Value}")</MudListItem>
+          }
+        }
+      </MudList>
+    </MudPaper>
+    <MudPaper Class="p-4">
+      <MudText Align="Align.Center" Typo="Typo.h6" Class="mb-7">Students with 5+ Absences</MudText>
+      <MudList T="string">
+        @if (absenceList.Count == 0)
+        {
+          <MudText Align="Align.Center">No data</MudText>
+        }
+        else
+        {
+          foreach (var absence in absenceList)
+          {
+            <MudListItem>@($"{absence.Key}: {absence.Value}")</MudListItem>
+          }
+        }
+      </MudList>
+    </MudPaper>
+  </MudItem>
+  <MudItem xs="12" sm="9">
+    <MudText Class="mb-2" Typo="Typo.h6">Announcements</MudText>
+    <MudDataGrid T="Announcement" Items="Announcements" ReadOnly="true" Filterable="true" Bordered="true" QuickFilter="Search">
+      <ToolBarContent>
+        <MudTooltip Text="Refresh List">
+          <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="GetAnnouncements"></MudIconButton>
+        </MudTooltip>
+        <MudSpacer />
+        <MudSpacer />
+        <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+      </ToolBarContent>
+      <Columns>
+        <PropertyColumn Property="x => x.UserId" Title="User">
+          <CellTemplate>
+            @($"{(Global.AllUsers.Where(u => u.Id == context.Item.UserId).First()).FirstName} {(Global.AllUsers.Where(u => u.Id == context.Item.UserId).First()).LastName}")
+          </CellTemplate>
+        </PropertyColumn>
+        <PropertyColumn Property="x => x.Message" />
+        <PropertyColumn Property="x => x.Created" />
+      </Columns>
+      <PagerContent>
+        <MudDataGridPager />
+      </PagerContent>
+    </MudDataGrid>
+  </MudItem>
+</MudGrid>
+
+@code {
+  ObservableCollection<Announcement> Announcements = new ObservableCollection<Announcement>();
+  Dictionary<string, int> absenceList = new Dictionary<string, int>();
+  Dictionary<string, int> tardyList = new Dictionary<string, int>();
+  Timer? timer;
+  string? searchInput;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      if (Global.CurrUser == null || Global.CurrUser.Role != "Teacher") 
+      { 
+        Global.MainContentClass = "signInBackground";
+        Global.DrawerOpen = false;
+        Global.DrawerClass = "invisible";
+        Global.AppBarClass = "invisible";
+        Global.MainContentWidth = MaxWidth.Small;
+        nav.NavigateTo("", true);
+      }
+      else
+      {
+        Global.MainContentClass = "";
+        Global.DrawerOpen = true;
+        Global.DrawerClass = "visible";
+        Global.AppBarClass = "visible";
+        await RefreshData();
+      }
+    }
+  }
+  async Task RefreshData()
+  {
+    await GetAnnouncements();
+    await GetExcessiveAbsences();
+    await GetExcessiveTardies();
+    await Global.GetUnreadMessages(D424DataContextFactory);
+    StateHasChanged();
+  }
+  async Task GetAnnouncements()
+  {
+    Announcements.Clear();
+    await Global.GetAllUsers(D424DataContextFactory);
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    var announcementsList = await context.Announcement.Where(a => a.Visibility == "Teacher" || a.Visibility == "All").OrderBy(a => a.Created).ToListAsync();
+    foreach (var announcement in announcementsList) { Announcements.Add(announcement); }
+  }
+  async Task GetExcessiveAbsences()
+  {
+    absenceList.Clear();
+    int gradingPeriod = (int)Math.Ceiling(DateTime.Now.Month / 3.0);
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    var teacherScheduleEntries = await context.ScheduleEntry.Where(s => s.UserId == Global.CurrUser.Id && s.GradingPeriod == gradingPeriod && s.Year == DateTime.Today.Year).ToListAsync();
+
+    foreach (var entry in teacherScheduleEntries)
+    {
+      var classScheduleEntries = await context.ScheduleEntry.Where(s => s.ClassId == entry.ClassId && s.GradingPeriod == entry.GradingPeriod && s.Year == entry.Year).ToListAsync();
+      if (classScheduleEntries.Count == 0) { continue; }
+
+      foreach (var scheduleEntry in classScheduleEntries)
+      {
+        var user = await context.User.Where(u => u.Id == scheduleEntry.UserId).FirstAsync();
+        if (user.Role != "Student") { continue; }
+        string name = $"{user.FirstName} {user.LastName}";
+
+        int absenceCount = (await context.Attendance.Where(a => a.StudentId == scheduleEntry.UserId && a.ScheduleEntryId == scheduleEntry.Id && a.Status == "Absent").ToListAsync()).Count();
+        if (absenceCount < 5) { continue; }
+
+        absenceList.Add(name, absenceCount);
+      }
+    }
+  }
+  async Task GetExcessiveTardies()
+  {
+    tardyList.Clear();
+    int gradingPeriod = (int)Math.Ceiling(DateTime.Now.Month / 3.0);
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    var teacherScheduleEntries = await context.ScheduleEntry.Where(s => s.UserId == Global.CurrUser.Id && s.GradingPeriod == gradingPeriod && s.Year == DateTime.Today.Year).ToListAsync();
+
+    foreach (var entry in teacherScheduleEntries)
+    {
+      var classScheduleEntries = await context.ScheduleEntry.Where(s => s.ClassId == entry.ClassId && s.GradingPeriod == entry.GradingPeriod && s.Year == entry.Year).ToListAsync();
+      if (classScheduleEntries.Count == 0) { continue; }
+
+      foreach (var scheduleEntry in classScheduleEntries)
+      {
+        var user = await context.User.Where(u => u.Id == scheduleEntry.UserId).FirstAsync();
+        if (user.Role != "Student") { continue; }
+        string name = $"{user.FirstName} {user.LastName}";
+
+        int tardyCount = (await context.Attendance.Where(a => a.StudentId == scheduleEntry.UserId && a.ScheduleEntryId == scheduleEntry.Id && a.Status == "Tardy").ToListAsync()).Count();
+        if (tardyCount < 5) { continue; }
+
+        tardyList.Add(name, tardyCount);
+      }
+    }
+  }
+  Func<Announcement, bool> Search => x =>
+    {
+      if (string.IsNullOrWhiteSpace(searchInput))
+      {
+        return true;
+      }
+      if (x.Message.Contains(searchInput.Trim(), StringComparison.OrdinalIgnoreCase))
+      {
+        return true;
+      }
+      return false;
+    };
+}

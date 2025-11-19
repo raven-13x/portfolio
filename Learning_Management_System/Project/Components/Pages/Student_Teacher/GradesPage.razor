@@ -1,0 +1,166 @@
+﻿@page "/grades"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Grades | SWCSC Portal</PageTitle>
+
+<MudText Align="Align.Center" Typo="Typo.h4" Class="mt-6">@courseworkName</MudText>
+<MudDataGrid T="Grade" Items="@CourseworkGrades" EditMode="DataGridEditMode.Cell" Filterable="true" StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@UpdateGrade" EditTrigger="@DataGridEditTrigger.OnRowClick"
+             Bordered="true" ReadOnly="false" Dense="true" Class="mt-6" RowsPerPage="50">
+  <ToolBarContent>
+    <MudTooltip Text="Refresh List">
+      <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="RefreshData"></MudIconButton>
+    </MudTooltip>
+  </ToolBarContent>
+  <Columns>
+    <PropertyColumn Property="x => x.StudentId" Editable="false">
+      <CellTemplate>
+        @($"{(Global.AllUsers.Where(u => u.Id == context.Item.StudentId).First()).FirstName} {(Global.AllUsers.Where(u => u.Id == context.Item.StudentId).First()).LastName}")
+      </CellTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Score" />
+    <PropertyColumn Property="x => x.Created" Editable="false"/>
+    <PropertyColumn Property="x => x.LastUpdate" Editable="false"/>
+  </Columns>
+  <PagerContent>
+    <MudDataGridPager />
+  </PagerContent>
+</MudDataGrid>
+
+@code {
+  ObservableCollection<Grade> CourseworkGrades { get; set; } = new ObservableCollection<Grade>();
+  List<Grade> AllGrades { get; set; } = new List<Grade>();
+
+  Grade? selectedGrade;
+  string? courseworkName = "";
+  Timer? timer;
+
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    try
+    {
+      if (firstRender)
+      {
+        if (Global.CurrUser == null || Global.CurrUser.Role != "Teacher") 
+        { 
+          Global.MainContentClass = "signInBackground";
+          Global.DrawerOpen = false;
+          Global.DrawerClass = "invisible";
+          Global.AppBarClass = "invisible";
+          Global.MainContentWidth = MaxWidth.Small;
+          nav.NavigateTo("", true);
+        }
+        else if (Global.SelectedClassId_Coursework == 0) { nav.NavigateTo("classes"); }
+        else
+        {
+          D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+          courseworkName = (await context.Coursework.Where(c => c.Id == Global.SelectedCourseworkId_Grades).FirstAsync()).Description;
+          await RefreshData();
+          Snackbar.Add("Click on a student to enter grades", Severity.Info);
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      // Do nothing
+    }
+  }
+  async Task RefreshData()
+  {
+    try
+    {
+      await Global.GetAllUsers(D424DataContextFactory);
+      await GetCourseworkGrades();
+      await Global.GetUnreadMessages(D424DataContextFactory);
+      StateHasChanged();
+    }
+    catch
+    {
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin.", Severity.Error);
+    }
+  }
+  async Task UpdateGrade(Grade grade)
+  {
+    try
+    {
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      grade.LastUpdate = DateTime.Now;
+      context.Grade.Update(grade);
+      await context.SaveChangesAsync();
+
+      selectedGrade = null;
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"UpdateGrade: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin.", Severity.Error);
+    }
+  }
+  async Task GetAllGrades()
+  {
+    try
+    {
+      AllGrades.Clear();
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      var grades = await context.Grade.ToListAsync();
+      foreach (var grade in grades) { AllGrades.Add(grade); }
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"GetAllGrades: {ex.Message}");
+    }
+  }
+  async Task GetCourseworkGrades()
+  {
+    try
+    {
+      CourseworkGrades.Clear();
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      var grades = await context.Grade.Where(g => g.CourseworkId == Global.SelectedCourseworkId_Grades).ToListAsync();
+      var scheduleEntries = await context.ScheduleEntry.Where(s => s.ClassId == Global.SelectedClassId_Coursework && s.GradingPeriod == Global.SelectedClassGradingPeriod && s.Year == Global.SelectedClassYear).ToListAsync();
+
+      if (grades.Count == 0 /* || grades.Count != scheduleEntries.Count */)
+      {
+        await GetAllGrades();
+        foreach (var scheduleEntry in scheduleEntries)
+        {
+          if ((await context.User.Where(u => u.Id == scheduleEntry.UserId).FirstAsync()).Role == "Teacher") { continue; }
+          var grade = new Grade
+            {
+              Id = AllGrades.Count == 0 ? 1 : await context.Grade.MaxAsync(m => m.Id) + 1,
+              StudentId = scheduleEntry.UserId,
+              CourseworkId = Global.SelectedCourseworkId_Grades,
+              Score = -1,
+              Created = DateTime.Now,
+              LastUpdate = DateTime.Now
+            };
+
+          if (await context.Grade.Where(g => g.StudentId == grade.StudentId && g.CourseworkId == grade.CourseworkId).FirstOrDefaultAsync() != null) { continue; }
+
+          if (AllGrades.Count == 0) { AllGrades.Add(grade); }
+          context.Grade.Add(grade);
+          await context.SaveChangesAsync();
+          grades.Add(grade);
+        }
+        await GetCourseworkGrades();
+      }
+      else
+      {
+        foreach (var grade in grades)
+        {
+          if (CourseworkGrades.Contains(grade)) { continue; }
+          CourseworkGrades.Add(grade);
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"GetCourseworkGrades: {ex.Message}");
+    }
+  }
+  void StartedEditingItem(Grade grade) => selectedGrade = grade;
+  void CanceledEditingItem() => selectedGrade = null;
+}

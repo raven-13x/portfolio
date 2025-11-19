@@ -1,0 +1,180 @@
+﻿@page "/classes"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Classes | SWCSC Portal</PageTitle>
+
+<MudGrid>
+  <MudItem xs="9">
+    <MudSpacer/>
+   </MudItem>
+  <MudItem xs="2">
+    <MudText Align="Align.Right" Typo="Typo.h6" Class="mt-5">Select Year:</MudText>
+  </MudItem>
+  <MudItem xs="1" >
+    <MudSelect T="int" @bind-Value="selectedYear" TextChanged="RefreshData" Style="@("")">
+      @if (Global.CurrUser.Role == "Student")
+      {
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year)">@(Global.CurrUser.Created.Year)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 1)">@(Global.CurrUser.Created.Year + 1)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 2)">@(Global.CurrUser.Created.Year + 2)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 3)">@(Global.CurrUser.Created.Year + 3)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 4)">@(Global.CurrUser.Created.Year + 4)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 5)">@(Global.CurrUser.Created.Year + 5)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 6)">@(Global.CurrUser.Created.Year + 6)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 7)">@(Global.CurrUser.Created.Year + 7)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 8)">@(Global.CurrUser.Created.Year + 8)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 9)">@(Global.CurrUser.Created.Year + 9)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 10)">@(Global.CurrUser.Created.Year + 10)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 11)">@(Global.CurrUser.Created.Year + 11)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 12)">@(Global.CurrUser.Created.Year + 12)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 13)">@(Global.CurrUser.Created.Year + 13)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 14)">@(Global.CurrUser.Created.Year + 14)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 15)">@(Global.CurrUser.Created.Year + 15)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(Global.CurrUser.Created.Year + 16)">@(Global.CurrUser.Created.Year + 16)</MudSelectItem>
+      }
+      else
+      {
+        <MudSelectItem T="int" Value="@(DateTime.Today.Year)">@(DateTime.Today.Year)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(DateTime.Today.Year + 1)">@(DateTime.Today.Year + 1)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(DateTime.Today.Year + 2)">@(DateTime.Today.Year + 2)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(DateTime.Today.Year + 3)">@(DateTime.Today.Year + 3)</MudSelectItem>
+        <MudSelectItem T="int" Value="@(DateTime.Today.Year + 4)">@(DateTime.Today.Year + 4)</MudSelectItem>
+      }
+    </MudSelect>
+  </MudItem>
+</MudGrid>
+
+<MudText Class="mt-7 mb-2" Typo="Typo.h6">1st Grading Period</MudText>
+<MudTable T="ScheduleEntry" Items="ClassesQ1.Where(e => e.Year == selectedYear)">
+  <HeaderContent>
+    <MudTh>Period</MudTh>
+    <MudTh>Class</MudTh>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTh>Teacher</MudTh>
+      <MudTh>Grade</MudTh>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTh># Enrolled</MudTh>
+    }
+  </HeaderContent>
+  <RowTemplate>
+    <MudTd DataLabel="Period">@context.Period</MudTd>
+    <MudTd DataLabel="Class"><MudNavLink Class="ml-n7" OnClick="() => ViewCoursework(context.ClassId, context.GradingPeriod, context.Year)">@((Global.AllClasses.Where(c => c.Id == context.ClassId).FirstOrDefault()).Title)</MudNavLink></MudTd>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTd DataLabel="Teacher">@GetTeacher(context.ClassId)</MudTd>
+      <MudTd DataLabel="Grade">@GetGrade(context).Result</MudTd>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTd DataLabel="# Enrolled">@GetEnrollmentByClass(context.ClassId, 1)</MudTd>
+    }
+  </RowTemplate>
+  <NoRecordsContent>
+    <MudText>No data</MudText>
+  </NoRecordsContent>
+</MudTable>
+
+<MudText Class="mt-7 mb-2" Typo="Typo.h6">2nd Grading Period</MudText>
+<MudTable T="ScheduleEntry" Items="ClassesQ2.Where(e => e.Year == selectedYear)">
+  <HeaderContent>
+    <MudTh>Period</MudTh>
+    <MudTh>Class</MudTh>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTh>Teacher</MudTh>
+      <MudTh>Grade</MudTh>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTh># Enrolled</MudTh>
+    }
+  </HeaderContent>
+  <RowTemplate>
+    <MudTd DataLabel="Period">@context.Period</MudTd>
+    <MudTd DataLabel="Class"><MudNavLink Class="ml-n7" OnClick="() => ViewCoursework(context.ClassId, context.GradingPeriod, context.Year)">@((Global.AllClasses.Where(c => c.Id == context.ClassId).FirstOrDefault()).Title)</MudNavLink></MudTd>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTd DataLabel="Teacher">@GetTeacher(context.ClassId)</MudTd>
+      <MudTd DataLabel="Grade">@GetGrade(context).Result</MudTd>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTd DataLabel="# Enrolled">@(GetEnrollmentByClass(context.ClassId, 2).Result)</MudTd>
+    }
+  </RowTemplate>
+  <NoRecordsContent>
+    <MudText>No data</MudText>
+  </NoRecordsContent>
+</MudTable>
+
+<MudText Class="mt-7 mb-2" Typo="Typo.h6">3rd Grading Period</MudText>
+<MudTable T="ScheduleEntry" Items="ClassesQ3.Where(e => e.Year == selectedYear)">
+  <HeaderContent>
+    <MudTh>Period</MudTh>
+    <MudTh>Class</MudTh>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTh>Teacher</MudTh>
+      <MudTh>Grade</MudTh>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTh># Enrolled</MudTh>
+    }
+  </HeaderContent>
+  <RowTemplate>
+    <MudTd DataLabel="Period">@context.Period</MudTd>
+    <MudTd DataLabel="Class"><MudNavLink Class="ml-n7" OnClick="() => ViewCoursework(context.ClassId, context.GradingPeriod, context.Year)">@((Global.AllClasses.Where(c => c.Id == context.ClassId).FirstOrDefault()).Title)</MudNavLink></MudTd>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTd DataLabel="Teacher">@GetTeacher(context.ClassId)</MudTd>
+      <MudTd DataLabel="Grade">@GetGrade(context).Result</MudTd>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTd DataLabel="# Enrolled">@(GetEnrollmentByClass(context.ClassId, 3).Result)</MudTd>
+    }
+  </RowTemplate>
+  <NoRecordsContent>
+    <MudText>No data</MudText>
+  </NoRecordsContent>
+</MudTable>
+
+<MudText Class="mt-7 mb-2" Typo="Typo.h6">4th Grading Period</MudText>
+<MudTable T="ScheduleEntry" Items="ClassesQ4.Where(e => e.Year == selectedYear)">
+  <HeaderContent>
+    <MudTh>Period</MudTh>
+    <MudTh>Class</MudTh>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTh>Teacher</MudTh>
+      <MudTh>Grade</MudTh>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTh># Enrolled</MudTh>
+    }
+  </HeaderContent>
+  <RowTemplate>
+    <MudTd DataLabel="Period">@context.Period</MudTd>
+    <MudTd DataLabel="Class"><MudNavLink Class="ml-n7" OnClick="() => ViewCoursework(context.ClassId, context.GradingPeriod, context.Year)">@((Global.AllClasses.Where(c => c.Id == context.ClassId).FirstOrDefault()).Title)</MudNavLink></MudTd>
+    @if (Global.CurrUser.Role == "Student")
+    {
+      <MudTd DataLabel="Teacher">@GetTeacher(context.ClassId)</MudTd>
+      <MudTd DataLabel="Grade">@GetGrade(context).Result</MudTd>
+    }
+    @if (Global.CurrUser.Role == "Teacher")
+    {
+      <MudTd DataLabel="# Enrolled">@(GetEnrollmentByClass(context.ClassId, 4).Result)</MudTd>
+    }
+  </RowTemplate>
+  <NoRecordsContent>
+    <MudText>No data</MudText>
+  </NoRecordsContent>
+</MudTable>

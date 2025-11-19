@@ -1,0 +1,65 @@
+﻿@page "/attendance"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Attendance | SWCSC Portal</PageTitle>
+
+<MudGrid Class="mt-2">
+  <MudItem xs="12" sm="4" Class="mt-6">
+    <MudDatePicker @bind-Date="SelectedDate" PickerVariant="PickerVariant.Static" Orientation="Orientation.Landscape" />
+  </MudItem>
+  <MudItem xs="12" sm="8" Class="mt-6">
+    @if (Global.CurrUser != null && Global.CurrUser.Role == "Student")
+    {
+      <MudTable T="Attendance" Items="AttendanceEntries">
+        <HeaderContent>
+          <MudTh>Period</MudTh>
+          <MudTh>Class</MudTh>
+          <MudTh>Status</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+          <MudTd DataLabel="Period">@(GetPeriodNbr(context.ScheduleEntryId).Result)</MudTd>
+          <MudTd DataLabel="Class">@(GetClassTitle(context.ScheduleEntryId).Result)</MudTd>
+          <MudTd DataLabel="Status">@context.Status</MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+          <MudText>No data</MudText>
+        </NoRecordsContent>
+      </MudTable>
+    }
+    else
+    {
+      <MudDataGrid T="Attendance" Items="AttendanceEntries" Filterable="true" Bordered="true" ReadOnly="false" EditTrigger="DataGridEditTrigger.Manual"
+                   EditMode="DataGridEditMode.Cell" StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@UpdateAttendance" RowsPerPage="50">
+        <ToolBarContent>
+          <MudTooltip Text="Refresh List">
+            <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="GetAttendanceTeacher"></MudIconButton>
+          </MudTooltip>
+        </ToolBarContent>
+        <Columns>
+          <PropertyColumn Property="x => x.ScheduleEntryId" Editable="false" Title="Period">
+            <CellTemplate>@((GetPeriodNbr(context.Item.ScheduleEntryId)).Result)</CellTemplate>
+          </PropertyColumn>
+          <PropertyColumn Property="x => x.ScheduleEntryId" Editable="false" Title="Class">
+            <CellTemplate>@((GetClassTitle(context.Item.ScheduleEntryId)).Result)</CellTemplate>
+          </PropertyColumn>
+          <PropertyColumn Property="x => x.StudentId" Title="Student" Editable="false">
+            <CellTemplate>@($"{(Global.AllUsers.Where(u => u.Id == context.Item.StudentId).First()).FirstName} {(Global.AllUsers.Where(u => u.Id == context.Item.StudentId).First()).LastName}")</CellTemplate>
+          </PropertyColumn>
+          <PropertyColumn Property="x => x.Status">
+            <EditTemplate>
+              <MudSelect T="string" @bind-Value="context.Item.Status" SelectedValuesChanged="@(() => UpdateAttendance(context.Item))" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4 align-self-stretch">
+                <MudSelectItem T="string" Value="@("Present")">Present</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Absent")">Absent</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Excused")">Excused</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Tardy")">Tardy</MudSelectItem>
+              </MudSelect>
+            </EditTemplate>
+          </PropertyColumn>
+        </Columns>
+      </MudDataGrid>
+    }
+  </MudItem>
+</MudGrid>
