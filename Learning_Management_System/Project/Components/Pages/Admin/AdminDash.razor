@@ -1,0 +1,124 @@
+﻿@page "/admindashboard"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Admin Dashboard | SWCSC Portal</PageTitle>
+
+<MudGrid Class="mt-6">
+  <MudItem xs="12" sm="2" md="3">
+    <MudPaper Class="p-4 mb-7">
+      <MudText Align="Align.Center" Typo="Typo.h6" Class="mb-7">Action items</MudText>
+      <MudText Class="mb-7">Locked accounts: @Global.AllUsers.Where(u => u.Locked == "Yes").Count()</MudText>
+      <MudText Class="mb-7">Messages for review: @Global.FlaggedMessages.Count()</MudText>
+      <MudText Class="mb-7">New warnings (24 hours): @FlaggedLogs.Where(l => l.Level == "WARNING" && l.Entered > DateTime.Today.AddDays(-1)).Count()</MudText>
+      <MudText Class="mb-7">New errors (24 hours): @FlaggedLogs.Where(l => l.Level == "ERROR" && l.Entered > DateTime.Today.AddDays(-1)).Count()</MudText>
+      <MudText Class="mb-7">Active announcements: @Global.AllAnnouncements.Where(a => a.Visibility != "None").Count()</MudText>
+    </MudPaper>
+    <MudPaper Class="p-4">
+      <MudText Align="Align.Center" Typo="Typo.h6" Class="mb-7">User Statistics</MudText>
+      <MudText Class="mb-7">Admins: @Global.AllUsers.Where(u => u.Role == "Admin").Count()</MudText>
+      <MudText Class="mb-7">Teachers: @Global.AllUsers.Where(u => u.Role == "Teacher").Count()</MudText>
+      <MudText Class="mb-7">Students: @Global.AllUsers.Where(u => u.Role == "Student").Count()</MudText>
+    </MudPaper>
+  </MudItem>
+  <MudItem xs="12" sm="10" md="9">
+    <MudText Class="mb-2" Typo="Typo.h5">Log review</MudText>
+    <MudDataGrid T="Log" Items="FlaggedLogs" ReadOnly="true" Filterable="true" Bordered="true"QuickFilter="Search" RowsPerPage="10">
+      <ToolBarContent>
+        <MudTooltip Text="Refresh List">
+          <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="GetFlaggedLogs"></MudIconButton>
+        </MudTooltip>
+        <MudSpacer />
+        <MudSpacer />
+        <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+      </ToolBarContent>
+      <Columns>
+        <PropertyColumn Property="x => x.UserId"/>
+        <PropertyColumn Property="x => x.UserId">
+          <CellTemplate>
+            @($"{(Global.AllUsers.Where(u => u.Id == context.Item.UserId).First()).FirstName} {(Global.AllUsers.Where(u => u.Id == context.Item.UserId).First()).LastName}")
+          </CellTemplate>
+        </PropertyColumn>
+        <PropertyColumn Property="x => x.Level"/>
+        <PropertyColumn Property="x => x.Message"/>
+        <PropertyColumn Property="x => x.Entered"/>
+      </Columns>
+      <PagerContent>
+        <MudDataGridPager />
+      </PagerContent>
+    </MudDataGrid>
+  </MudItem>
+</MudGrid>
+
+@code {
+  ObservableCollection<Log> FlaggedLogs { get; set; } = new ObservableCollection<Log>();
+  string? searchInput;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    try
+    {
+      if (firstRender)
+      {
+        if (Global.CurrUser == null || Global.CurrUser.Role != "Admin") 
+        { 
+          Global.MainContentClass = "signInBackground";
+          Global.DrawerOpen = false;
+          Global.DrawerClass = "invisible";
+          Global.AppBarClass = "invisible";
+          Global.MainContentWidth = MaxWidth.Small;
+          nav.NavigateTo("", true);
+        }
+        else
+        {
+          Global.MainContentClass = "";
+          Global.DrawerOpen = true;
+          Global.DrawerClass = "visible";
+          Global.AppBarClass = "visible";
+          await RefreshDash();
+        }
+      }
+    }
+    catch
+    {
+      // Do nothing
+    }
+  }
+  async Task RefreshDash()
+  {
+    await Global.GetAllUsers(D424DataContextFactory);
+    await Global.GetFlaggedMessages(D424DataContextFactory);
+    await Global.GetAllAnnouncements(D424DataContextFactory);
+    await GetFlaggedLogs();
+    StateHasChanged();
+  }
+  async Task GetFlaggedLogs()
+  {
+    try
+    {
+      FlaggedLogs.Clear();
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      var flaggedLogs = await context.Log.Where(l => l.Level == "ERROR" || l.Level == "WARNING").OrderByDescending(l => l.Entered).ToListAsync();
+      foreach (var flaggedLog in flaggedLogs) { FlaggedLogs.Add(flaggedLog); }
+      StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"GetFlaggedLogs: {ex.Message}");
+    }
+  }
+  Func<Log, bool> Search => x =>
+  {
+    if (string.IsNullOrWhiteSpace(searchInput))
+    {
+      return true;
+    }
+    if (x.Message.Contains(searchInput.Trim(), StringComparison.OrdinalIgnoreCase))
+    {
+      return true;
+    }
+    return false;
+  };
+}

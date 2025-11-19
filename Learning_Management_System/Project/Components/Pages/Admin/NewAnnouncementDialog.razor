@@ -1,0 +1,57 @@
+﻿@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+
+<MudDialog>
+  <DialogContent>
+    <MudTextField @bind-Value="newAnnouncement.Id" Label="Id" Variant="Variant.Outlined" ReadOnly="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudTextField T="int" @bind-Value="newAnnouncement.UserId" Label="User Id" Variant="Variant.Outlined" ReadOnly="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudTextField @bind-Value="newAnnouncement.Message" Label="Message" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudSelect T="string" @bind-Value="newAnnouncement.Visibility" Label="Visibility" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="string" Value="@("All")">All</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Teachers")">Teachers</MudSelectItem>
+      <MudSelectItem T="string" Value="@("None")">None</MudSelectItem>
+    </MudSelect>
+  </DialogContent>
+  <DialogActions>
+    <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertAnnouncement">Add</MudButton>
+  </DialogActions>
+</MudDialog>
+
+
+@code {
+  [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+  Announcement newAnnouncement = new Announcement();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    await Global.GetAllAnnouncements(D424DataContextFactory);
+    newAnnouncement.Id = Global.AllAnnouncements.Count == 0 ? 1 : await context.Announcement.MaxAsync(c => c.Id) + 1;
+  }
+  async void InsertAnnouncement()
+  {
+    try
+    {
+      if (string.IsNullOrWhiteSpace(newAnnouncement.Message)) { Snackbar.Add("The announcement must have a message.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newAnnouncement.Visibility)) { Snackbar.Add("The announcement must have a visibility level.", Severity.Error); return; }
+
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      newAnnouncement.UserId = Global.CurrUser.Id;
+      newAnnouncement.Created = DateTime.Now;
+      newAnnouncement.LastUpdate = DateTime.Now;
+
+      context.Announcement.Add(newAnnouncement);
+      await context.SaveChangesAsync();
+      MudDialog.Close();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"InsertAnnouncement: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin.", Severity.Error);
+      MudDialog.Close();
+    }
+  }
+  void Cancel() => MudDialog.Cancel();
+}

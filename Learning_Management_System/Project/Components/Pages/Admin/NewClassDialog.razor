@@ -1,0 +1,91 @@
+﻿@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+
+<MudDialog>
+  <DialogContent>
+    <MudTextField @bind-Value="newClass.Id" Label="Id" Variant="Variant.Outlined" ReadOnly="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudSelect T="int" @bind-Value="newClass.TeacherId" Label="Teacher Id" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4">
+      @foreach (User teacher in Global.AllTeachers)
+      {
+        <MudSelectItem T="int" Value="@(teacher.Id)">@($"{teacher.Id} - {teacher.FirstName} {teacher.LastName}")</MudSelectItem>
+      }
+    </MudSelect>
+    <MudTextField @bind-Value="newClass.Title" Label="Title" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudSelect T="string" @bind-Value="newClass.Subject" Label="Subject" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="string" Value="@("Math")">Math</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Science")">Science</MudSelectItem>
+      <MudSelectItem T="string" Value="@("ELA")">ELA</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Social Studies")">Social Studies</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Art/Music")">Art/Music</MudSelectItem>
+      <MudSelectItem T="string" Value="@("PE")">PE</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Health")">Health</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Foreign Language")">Foreign Language</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Business/Econ")">Business/Econ</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Vocation")">Vocation</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Other")">Other</MudSelectItem>
+    </MudSelect>
+    <MudSelect T="int" @bind-Value="newClass.GradeLevel" Variant="Variant.Outlined" Label="Grade Level*" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="int" Value="@(0)">0</MudSelectItem>
+      <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+      <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+      <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+      <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+      <MudSelectItem T="int" Value="@(5)">5</MudSelectItem>
+      <MudSelectItem T="int" Value="@(6)">6</MudSelectItem>
+      <MudSelectItem T="int" Value="@(7)">7</MudSelectItem>
+      <MudSelectItem T="int" Value="@(8)">8</MudSelectItem>
+      <MudSelectItem T="int" Value="@(9)">9</MudSelectItem>
+      <MudSelectItem T="int" Value="@(10)">10</MudSelectItem>
+      <MudSelectItem T="int" Value="@(11)">11</MudSelectItem>
+      <MudSelectItem T="int" Value="@(12)">12</MudSelectItem>
+    </MudSelect>
+    <MudSelect T="string" @bind-Value="newClass.Active" Label="Active?" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="string" Value="@("Yes")">Yes</MudSelectItem>
+      <MudSelectItem T="string" Value="@("No")">No</MudSelectItem>
+    </MudSelect>
+  </DialogContent>
+  <DialogActions>
+    <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertCourse">Add</MudButton>
+  </DialogActions>
+</MudDialog>
+
+
+@code {
+  [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+  Class newClass = new Class();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    newClass.Id = Global.AllClasses.Count == 0 ? 1 : await context.Class.MaxAsync(c => c.Id) + 1;
+    await Global.GetAllTeachers(D424DataContextFactory);
+  }
+  async void InsertCourse()
+  {
+    try
+    {
+      if (newClass.TeacherId == 0) { Snackbar.Add("The class must have a teacher.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newClass.Title)) { Snackbar.Add("The class must have a title.", Severity.Error); return; }
+      if (newClass.GradeLevel == 0) { Snackbar.Add("The class must have a grade level.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newClass.Subject)) { Snackbar.Add("The class must have a subject.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newClass.Active)) { Snackbar.Add("The class must have an active status selected.", Severity.Error); return; }
+
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      newClass.Created = DateTime.Now;
+      newClass.LastUpdate = DateTime.Now;
+
+      context.Class.Add(newClass);
+      await context.SaveChangesAsync();
+      MudDialog.Close();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"InsertClass: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin", Severity.Error);
+      MudDialog.Close();
+    }
+  }
+  void Cancel() => MudDialog.Cancel();
+}

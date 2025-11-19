@@ -1,0 +1,100 @@
+﻿@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+
+<MudDialog>
+  <DialogContent>
+    <MudTextField @bind-Value="newUser.Id" Label="Id" Variant="Variant.Outlined" ReadOnly="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudTextField @bind-Value="newUser.FirstName" Label="First Name" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudTextField @bind-Value="newUser.LastName" Label="Last Name" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudSelect T="string" @bind-Value="newUser.Role" Label="Role" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="string" Value="@("Student")">Student</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Teacher")">Teacher</MudSelectItem>
+      <MudSelectItem T="string" Value="@("Admin")">Admin</MudSelectItem>
+    </MudSelect>
+    <MudSelect T="int" @bind-Value="newUser.GradeLevel" Variant="Variant.Outlined" Label="Grade Level*" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="int" Value="@(0)">0</MudSelectItem>
+      <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+      <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+      <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+      <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+      <MudSelectItem T="int" Value="@(5)">5</MudSelectItem>
+      <MudSelectItem T="int" Value="@(6)">6</MudSelectItem>
+      <MudSelectItem T="int" Value="@(7)">7</MudSelectItem>
+      <MudSelectItem T="int" Value="@(8)">8</MudSelectItem>
+      <MudSelectItem T="int" Value="@(9)">9</MudSelectItem>
+      <MudSelectItem T="int" Value="@(10)">10</MudSelectItem>
+      <MudSelectItem T="int" Value="@(11)">11</MudSelectItem>
+      <MudSelectItem T="int" Value="@(12)">12</MudSelectItem>
+    </MudSelect>
+    <MudTextField @bind-Value="newUser.Username" Label="Username" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudTextField @bind-Value="newUser.Password" Label="Password" Variant="Variant.Outlined" Required="true" Validation="@(new Func<string, IEnumerable<string>>(PasswordValidation))" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudSelect T="string" @bind-Value="newUser.Locked" Label="Locked?" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="string" Value="@("Yes")">Yes</MudSelectItem>
+      <MudSelectItem T="string" Value="@("No")">No</MudSelectItem>
+    </MudSelect>
+  </DialogContent>
+  <DialogActions>
+    <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertUser">Add</MudButton>
+  </DialogActions>
+</MudDialog>
+
+
+@code {
+  [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+  User newUser = new User();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    await Global.GetAllUsers(D424DataContextFactory);
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    newUser.Id = Global.AllUsers.Count == 0 ? 1 : await context.User.MaxAsync(c => c.Id) + 1;
+  }
+  async void InsertUser()
+  {
+    try
+    {
+      if (string.IsNullOrWhiteSpace(newUser.FirstName)) { Snackbar.Add("The user must have a first name.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newUser.LastName)) { Snackbar.Add("The user must have a last name.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newUser.Role)) { Snackbar.Add("The user must have a role.", Severity.Error); return; }
+      if (newUser.GradeLevel == 0) { Snackbar.Add("The user must have a grade level.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newUser.Username)) { Snackbar.Add("The user must have a username.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newUser.Password)) { Snackbar.Add("The user must have a password.", Severity.Error); return; }
+      if (string.IsNullOrWhiteSpace(newUser.Locked)) { Snackbar.Add("The user must have a locked status.", Severity.Error); return; }
+      
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+      newUser.FailedAttempts = 0;
+      newUser.Created = DateTime.Now;
+      newUser.LastUpdate = DateTime.Now;
+
+      context.User.Add(newUser);
+      await context.SaveChangesAsync();
+      MudDialog.Close();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"InsertUser: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin", Severity.Error);
+      MudDialog.Close();
+    }
+  }
+  IEnumerable<string> PasswordValidation(string password)
+  {
+    string numberPattern = @"\d";
+    string upperCasePattern = @"[A-Z]";
+    string symbolsPattern = @"[!@#$%^&*()_\-+=<>,.?]";
+
+    if (string.IsNullOrWhiteSpace(password))
+    {
+      yield return "Password is required";
+      yield break;
+    }
+    if (password.Length < 8 || password.Length > 25) { yield return "Password must be between 8-25 characters"; }
+    if (!Regex.IsMatch(password, numberPattern)) { yield return "Password must contain at least one number"; }
+    if (!Regex.IsMatch(password, upperCasePattern)) { yield return "Password must contain at least one uppercase letter"; }
+    if (!Regex.IsMatch(password, symbolsPattern)) { yield return "Password must contain at least one symbol"; }
+  }
+  void Cancel() => MudDialog.Cancel();
+}

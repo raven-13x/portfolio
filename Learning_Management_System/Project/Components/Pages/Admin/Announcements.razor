@@ -1,0 +1,46 @@
+﻿@page "/announcements"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Announcements | SWCSC Portal</PageTitle>
+
+<MudDataGrid T="Announcement" Items="@Global.AllAnnouncements" EditMode="DataGridEditMode.Form" Filterable="true" StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@UpdateAnnouncement" EditTrigger="@DataGridEditTrigger.OnRowClick"
+             Bordered="true" ReadOnly="false" Dense="true" QuickFilter="Search" Class="mt-6" RowsPerPage="50">
+  <ToolBarContent>
+    <MudButton Class="mt-8 mb-4 mr-4" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnAddAnnouncementClicked">Add Announcement</MudButton>
+    <MudTooltip Text="Refresh List">
+      <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="RefreshAllAnnouncements"></MudIconButton>
+    </MudTooltip>
+    <MudSpacer />
+    <MudSpacer />
+    <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+  </ToolBarContent>
+  <Columns>
+    <PropertyColumn Property="x => x.Id" Editable="false" />
+    <PropertyColumn Property="x => x.UserId" Title="User Id" Editable="false" />
+    <PropertyColumn Property="x => x.Message" Required="true"/>
+    <PropertyColumn Property="x => x.Visibility" Required="true">
+      <EditTemplate>
+        <MudSelect T="string" @bind-Value="selectedAnnouncement.Visibility" Variant="Variant.Outlined" Label="Visibility*" Margin="Margin.Dense" Class="mt-4" Required="true">
+          <MudSelectItem T="string" Value="@("All")">All</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Teachers")">Teachers</MudSelectItem>
+          <MudSelectItem T="string" Value="@("None")">None</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Created" />
+    <PropertyColumn Property="x => x.LastUpdate" Title="Last Update" />
+    <PropertyColumn Property="x => x.LastUpdate" Title="" Filterable="false"> <!-- Works around cell misalignment using template column -->
+      <CellTemplate>
+        <MudTooltip Text="Delete announcement">
+          <MudIconButton Variant="Variant.Filled" Color="Color.Error" Size="@Size.Medium" Icon="@Icons.Material.Outlined.Delete" OnClick="() => DeleteAnnouncement(context.Item)" />
+        </MudTooltip>
+      </CellTemplate>
+    </PropertyColumn>
+  </Columns>
+  <PagerContent>
+    <MudDataGridPager />
+  </PagerContent>
+</MudDataGrid>

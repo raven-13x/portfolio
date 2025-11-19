@@ -1,0 +1,94 @@
+﻿@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+
+<MudDialog>
+  <DialogContent>
+    <MudTextField @bind-Value="newEntry.Id" Label="Id" Variant="Variant.Outlined" ReadOnly="true" Margin="Margin.Dense" Class="mt-4"></MudTextField>
+    <MudSelect T="int" @bind-Value="newEntry.UserId" Label="User Id" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4">
+      @foreach (User user in Global.AllUsers)
+      {
+        if (user.Role != "Admin")
+        {
+          <MudSelectItem T="int" Value="@user.Id">@($"{user.Id} - {user.FirstName} {user.LastName} ({user.Role})")</MudSelectItem>
+        }
+      }
+    </MudSelect>
+    <MudSelect T="int" @bind-Value="newEntry.ClassId" Label="Class Id" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      @foreach (Class _class in Global.AllClasses)
+      {
+        <MudSelectItem T="int" Value="_class.Id">@($"{_class.Id} - {_class.Title}")</MudSelectItem>
+      }
+    </MudSelect>
+    <MudSelect T="int" @bind-Value="newEntry.Period" Variant="Variant.Outlined" Label="Period" Margin="Margin.Dense" Class="mt-4" Required="true">
+      <MudSelectItem T="int" Value="@(0)">0</MudSelectItem> <!-- Can be used to represent homeroom -->
+      <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+      <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+      <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+      <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+      <MudSelectItem T="int" Value="@(5)">5</MudSelectItem>
+      <MudSelectItem T="int" Value="@(6)">6</MudSelectItem>
+      <MudSelectItem T="int" Value="@(7)">7</MudSelectItem>
+    </MudSelect>
+    <MudSelect T="int" @bind-Value="newEntry.GradingPeriod" Label="Grading Period" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mt-4">
+      <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+      <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+      <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+      <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+    </MudSelect>
+    <MudSelect T="int" @bind-Value="newEntry.Year">
+      <MudSelectItem T="int">@(DateTime.Now.Year)</MudSelectItem>
+      <MudSelectItem T="int">@(DateTime.Now.Year + 1)</MudSelectItem>
+      <MudSelectItem T="int">@(DateTime.Now.Year + 2)</MudSelectItem>
+      <MudSelectItem T="int">@(DateTime.Now.Year + 3)</MudSelectItem>
+      <MudSelectItem T="int">@(DateTime.Now.Year + 4)</MudSelectItem>
+      <MudSelectItem T="int">@(DateTime.Now.Year + 5)</MudSelectItem>
+      <MudSelectItem T="int">@(DateTime.Now.Year + 6)</MudSelectItem>
+    </MudSelect>
+  </DialogContent>
+  <DialogActions>
+    <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertScheduleEntry">Add</MudButton>
+  </DialogActions>
+</MudDialog>
+
+
+@code {
+  [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+  ScheduleEntry newEntry = new ScheduleEntry();
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+    await Global.GetAllScheduleEntries(D424DataContextFactory);
+    newEntry.Id = Global.AllScheduleEntries.Count == 0 ? 1 : await context.ScheduleEntry.MaxAsync(c => c.Id) + 1;
+    newEntry.GradingPeriod = 1;
+    newEntry.Year = DateTime.Today.Year;
+    await Global.GetAllUsers(D424DataContextFactory);
+  }
+  async void InsertScheduleEntry()
+  {
+    try
+    {
+      if (newEntry.UserId == 0) { Snackbar.Add("The schedule entry must have a user.", Severity.Error); return; }
+      if (newEntry.ClassId == 0) { Snackbar.Add("The schedule entry must have a class.", Severity.Error); return; }
+      if (newEntry.Period == 0) { Snackbar.Add("The schedule entry must have a period.", Severity.Error); return; }
+      if (newEntry.GradingPeriod == 0) { Snackbar.Add("The schedule entry must have a grading period.", Severity.Error); return; }
+      
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+      newEntry.Created = DateTime.Now;
+      newEntry.LastUpdate = DateTime.Now;
+
+      context.ScheduleEntry.Add(newEntry);
+      await context.SaveChangesAsync();
+      MudDialog.Close();
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"InsertScheduleEntry: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin", Severity.Error);
+      MudDialog.Close();
+    }
+  }
+  void Cancel() => MudDialog.Cancel();
+}

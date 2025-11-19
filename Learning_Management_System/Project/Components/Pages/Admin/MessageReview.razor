@@ -1,0 +1,123 @@
+﻿@page "/messagereview"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Message Review | SWCSC Portal</PageTitle>
+
+<MudDataGrid T="Message" Items="@Global.FlaggedMessages" EditMode="DataGridEditMode.Form" Filterable="true" Bordered="true" ReadOnly="true" Dense="true" QuickFilter="Search" Class="mt-6" RowsPerPage="50">
+  <ToolBarContent>
+    <MudTooltip Text="Refresh List">
+      <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="RefreshFlaggedMessages"></MudIconButton>
+    </MudTooltip>
+    <MudSpacer />
+    <MudSpacer />
+    <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+  </ToolBarContent>
+  <Columns>
+    <PropertyColumn Property="x => x.SenderId" Title="User Id">
+      <CellTemplate>
+        @foreach(User user in Global.AllUsers.Where(u => u.Id == context.Item.SenderId)) 
+        {
+          @($"{user.Id} - {user.FirstName} {user.LastName}")
+        }
+      </CellTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.RecipientId">
+      <CellTemplate>
+        @foreach (User user in Global.AllUsers.Where(u => u.Id == context.Item.RecipientId))
+        {
+          @($"{user.Id} - {user.FirstName} {user.LastName}")
+        }
+      </CellTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Content"/>
+    <PropertyColumn Property="x => x.Sent" />
+    <PropertyColumn Property="x => x.Sent" Title="" Filterable="false"> <!-- Works around cell misalignment using template column -->
+      <CellTemplate>
+        <MudTooltip Text="Unflag message">
+          <MudIconButton Variant="Variant.Filled" Color="Color.Error" Size="@Size.Medium" Icon="@Icons.Material.Outlined.Delete" OnClick="() => UnflagMessage(context.Item)" />
+        </MudTooltip>
+      </CellTemplate>
+    </PropertyColumn>
+  </Columns>
+  <PagerContent>
+    <MudDataGridPager />
+  </PagerContent>
+</MudDataGrid>
+
+@code {
+  string? searchInput;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+      if (Global.CurrUser == null || Global.CurrUser.Role != "Admin") 
+      { 
+        Global.MainContentClass = "signInBackground";
+        Global.DrawerOpen = false;
+        Global.DrawerClass = "invisible";
+        Global.AppBarClass = "invisible";
+        Global.MainContentWidth = MaxWidth.Small;
+        nav.NavigateTo("", true);
+      }
+      else 
+      {
+        await RefreshFlaggedMessages();
+      }
+    }
+  }
+  async Task UnflagMessage(Message message)
+  {
+    try
+    {
+      bool? result = await DialogService.ShowMessageBox("Warning", "Are you sure you want to unflag this message?", cancelText: "No", yesText: "Yes");
+      D424DataContext context = await D424DataContextFactory.CreateDbContextAsync();
+
+      if (result != null && (bool)result)
+      {
+        context.Message.Attach(message);
+        message.Flagged = "No";
+        context.Update(message);
+        await context.SaveChangesAsync();
+
+        Global.FlaggedMessages.Remove(message);
+        StateHasChanged();
+      }
+    }
+    catch (Exception ex)
+    {
+      await Global.Log(D424DataContextFactory, "ERROR", $"DeleteUser: {ex.Message}");
+      Snackbar.Add("There was a problem fulfilling your request. Please contact your site admin", Severity.Error);
+    }
+  }
+  async Task RefreshFlaggedMessages()
+  {
+    await Global.GetFlaggedMessages(D424DataContextFactory);
+    await Global.GetAllUsers(D424DataContextFactory);
+    StateHasChanged();
+  }
+  Func<Message, bool> Search => x =>
+  {
+    if (string.IsNullOrWhiteSpace(searchInput))
+    {
+      return true;
+    }
+    if (x.SenderId.ToString().Contains(searchInput.Trim(), StringComparison.OrdinalIgnoreCase))
+    {
+      return true;
+    }
+    if (x.RecipientId.ToString().Contains(searchInput.Trim(), StringComparison.OrdinalIgnoreCase))
+    {
+      return true;
+    }
+    if (x.Content.Contains(searchInput.Trim(), StringComparison.OrdinalIgnoreCase))
+    {
+      return true;
+    }
+    return false;
+  };
+}

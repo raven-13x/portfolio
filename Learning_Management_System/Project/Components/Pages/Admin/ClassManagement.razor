@@ -1,0 +1,98 @@
+﻿@page "/classmanagement"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Courses | SWCSC Portal</PageTitle>
+
+<MudDataGrid T="Class" Items="@Global.AllClasses" EditMode="DataGridEditMode.Form" Filterable="true" StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@UpdateClass" EditTrigger="@DataGridEditTrigger.OnRowClick"
+             Bordered="true" ReadOnly="false" Dense="true" QuickFilter="Search" Class="mt-6" RowsPerPage="50">
+  <ToolBarContent>
+    <MudButton Class="mt-8 mb-4 mr-4" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnAddClassClicked">Add Class</MudButton>
+    <MudTooltip Text="Refresh List">
+      <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="RefreshAllClasses"></MudIconButton>
+    </MudTooltip>
+    <MudSpacer />
+    <MudSpacer />
+    <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+  </ToolBarContent>
+  <Columns>
+    <PropertyColumn Property="x => x.TeacherId" Title="Teacher Id">
+      <CellTemplate>
+        @foreach (User teacher in Global.AllTeachers)
+        {
+          if (teacher.Id == context.Item.TeacherId)
+          {
+            <MudText>@($"{teacher.Id} - {teacher.FirstName} {teacher.LastName}")</MudText>
+          }
+        }
+      </CellTemplate>
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedClass.TeacherId" Label="Teacher Id" Variant="Variant.Outlined" Required="true" Margin="Margin.Dense" Class="mt-4">
+          @foreach (User teacher in Global.AllTeachers)
+          {
+            <MudSelectItem T="int" Value="@(teacher.Id)">@($"{teacher.Id} - {teacher.FirstName} {teacher.LastName}")</MudSelectItem>
+          }
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Title" Required="true"/>
+    <PropertyColumn Property="x => x.Subject">
+      <EditTemplate>
+        <MudSelect T="string" @bind-Value="selectedClass.Subject" Variant="Variant.Outlined" Label="Subject" Margin="Margin.Dense" Class="mt-4 align-self-stretch" Required="true">
+          <MudSelectItem T="string" Value="@("Math")">Math</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Science")">Science</MudSelectItem>
+          <MudSelectItem T="string" Value="@("ELA")">ELA</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Social Studies")">Social Studies</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Art/Music")">Art/Music</MudSelectItem>
+          <MudSelectItem T="string" Value="@("PE")">PE</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Health")">Health</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Foreign Language")">Foreign Language</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Business/Econ")">Business/Econ</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Vocation")">Vocation</MudSelectItem>
+          <MudSelectItem T="string" Value="@("Other")">Other</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.GradeLevel" Title="Grade Level">
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedClass.GradeLevel" Variant="Variant.Outlined" Label="Grade Level" Margin="Margin.Dense" Class="mt-4 align-self-stretch" Required="true">
+          <MudSelectItem T="int" Value="@(0)">0</MudSelectItem>
+          <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+          <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+          <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+          <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+          <MudSelectItem T="int" Value="@(5)">5</MudSelectItem>
+          <MudSelectItem T="int" Value="@(6)">6</MudSelectItem>
+          <MudSelectItem T="int" Value="@(7)">7</MudSelectItem>
+          <MudSelectItem T="int" Value="@(8)">8</MudSelectItem>
+          <MudSelectItem T="int" Value="@(9)">9</MudSelectItem>
+          <MudSelectItem T="int" Value="@(10)">10</MudSelectItem>
+          <MudSelectItem T="int" Value="@(11)">11</MudSelectItem>
+          <MudSelectItem T="int" Value="@(12)">12</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Active" Title="Active?">
+      <EditTemplate>
+        <MudSelect T="string" @bind-Value="selectedClass.Active" Variant="Variant.Outlined" Label="Active?" Margin="Margin.Dense" Class="mt-4" Required="true">
+          <MudSelectItem T="string" Value="@("Yes")">Yes</MudSelectItem>
+          <MudSelectItem T="string" Value="@("No")">No</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Created" />
+    <PropertyColumn Property="x => x.LastUpdate" Title="Last Update" />
+    <PropertyColumn Property="x => x.LastUpdate" Title="" Filterable="false"> <!-- Works around cell misalignment using template column -->
+      <CellTemplate>
+        <MudTooltip Text="Delete class">
+          <MudIconButton Variant="Variant.Filled" Color="Color.Error" Size="@Size.Medium" Icon="@Icons.Material.Outlined.Delete" OnClick="() => DeleteClass(context.Item)" />
+        </MudTooltip>
+      </CellTemplate>
+    </PropertyColumn>
+  </Columns>
+  <PagerContent>
+    <MudDataGridPager />
+  </PagerContent>
+</MudDataGrid>

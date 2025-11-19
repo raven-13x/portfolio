@@ -1,0 +1,106 @@
+﻿@page "/schedulemanagement"
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject NavigationManager nav
+
+<PageTitle>Schedule Entry | SWCSC Portal</PageTitle>
+
+<MudDataGrid T="ScheduleEntry" Items="@Global.AllScheduleEntries" EditMode="DataGridEditMode.Form" Filterable="true" StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@UpdateScheduleEntry" EditTrigger="@DataGridEditTrigger.OnRowClick"
+             Bordered="true" ReadOnly="false" Dense="true" QuickFilter="Search" Class="mt-6" RowsPerPage="50">
+  <ToolBarContent>
+    <MudButton Class="mt-8 mb-4 mr-4" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnAddEntryClicked">Add Entry</MudButton>
+    <MudTooltip Text="Refresh List">
+      <MudIconButton Class="mt-8 mb-4" Color="Color.Tertiary" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Filled" OnClick="RefreshAllScheduleEntries"></MudIconButton>
+    </MudTooltip>
+    <MudSpacer />
+    <MudSpacer />
+    <MudTextField @bind-Value="searchInput" Style="@($"background:{Colors.Gray.Lighten5}")" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-8 mb-4" Immediate="true"></MudTextField>
+  </ToolBarContent>
+  <Columns>
+    <PropertyColumn Property="x => x.UserId" Title="User Id">
+      <CellTemplate>
+        @foreach(User user in Global.AllUsers.Where(u => u.Id == context.Item.UserId))
+        {
+          @($"{user.Id} - {user.FirstName} {user.LastName}")
+        }
+      </CellTemplate>
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedEntry.UserId" Variant="Variant.Outlined" Label="User Id" Margin="Margin.Dense" Class="mt-4" Required="true">
+          @foreach(User user in Global.AllUsers)
+          {
+            if (user.Role != "Admin")
+            {
+              <MudSelectItem T="int" Value="@user.Id">@($"{user.Id} - {user.FirstName} {user.LastName} ({user.Role})")</MudSelectItem>
+            }
+          }
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.ClassId" Title="Class Id">
+      <CellTemplate>
+        @foreach (Class _class in Global.AllClasses.Where(c => c.Id == context.Item.ClassId))
+        {
+          @($"{_class.Id} - {_class.Title}")
+        }
+      </CellTemplate>
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedEntry.ClassId" Variant="Variant.Outlined" Label="Class Id" Margin="Margin.Dense" Class="mt-4" Required="true">
+          @foreach (Class course in Global.AllClasses)
+          {
+            <MudSelectItem T="int" Value="course.Id">@($"{course.Id} - {course.Title}")</MudSelectItem>
+          }
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Period">
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedEntry.Period" Variant="Variant.Outlined" Label="Period" Margin="Margin.Dense" Class="mt-4" Required="true">
+          <MudSelectItem T="int" Value="@(0)">0</MudSelectItem> <!-- Can be used to represent homeroom -->
+          <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+          <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+          <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+          <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+          <MudSelectItem T="int" Value="@(5)">5</MudSelectItem>
+          <MudSelectItem T="int" Value="@(6)">6</MudSelectItem>
+          <MudSelectItem T="int" Value="@(7)">7</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.GradingPeriod">
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedEntry.GradingPeriod" Variant="Variant.Outlined" Label="Grading Period" Margin="Margin.Dense" Class="mt-4" Required="true">
+          <MudSelectItem T="int" Value="@(1)">1</MudSelectItem>
+          <MudSelectItem T="int" Value="@(2)">2</MudSelectItem>
+          <MudSelectItem T="int" Value="@(3)">3</MudSelectItem>
+          <MudSelectItem T="int" Value="@(4)">4</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Year">
+      <EditTemplate>
+        <MudSelect T="int" @bind-Value="selectedEntry.Year" Variant="Variant.Outlined" Label="Year" Margin="Margin.Dense" Class="mt-4" Required="true">
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year)">@(DateTime.Now.Year)</MudSelectItem>
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year + 1)">@(DateTime.Now.Year + 1)</MudSelectItem>
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year + 2)">@(DateTime.Now.Year + 2)</MudSelectItem>
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year + 3)">@(DateTime.Now.Year + 3)</MudSelectItem>
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year + 4)">@(DateTime.Now.Year + 4)</MudSelectItem>
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year + 5)">@(DateTime.Now.Year + 5)</MudSelectItem>
+          <MudSelectItem T="int" Value="@(DateTime.Now.Year + 6)">@(DateTime.Now.Year + 6)</MudSelectItem>
+        </MudSelect>
+      </EditTemplate>
+    </PropertyColumn>
+    <PropertyColumn Property="x => x.Created" />
+    <PropertyColumn Property="x => x.LastUpdate" Title="Last Update" />
+    <PropertyColumn Property="x => x.LastUpdate" Title="" Filterable="false"> <!-- Works around cell misalignment using template column -->
+      <CellTemplate>
+        <MudTooltip Text="Delete entry">
+          <MudIconButton Variant="Variant.Filled" Color="Color.Error" Size="@Size.Medium" Icon="@Icons.Material.Outlined.Delete" OnClick="() => DeleteScheduleEntry(context.Item)" />
+        </MudTooltip>
+      </CellTemplate>
+    </PropertyColumn>
+  </Columns>
+  <PagerContent>
+    <MudDataGridPager />
+  </PagerContent>
+</MudDataGrid>
