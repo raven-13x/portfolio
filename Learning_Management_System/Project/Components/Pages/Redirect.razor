@@ -1,0 +1,34 @@
+﻿@page "/redirect"
+@inject NavigationManager nav
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+
+@code {
+  string? route;
+
+  protected override async Task OnInitializedAsync()
+  {
+    if (Global.CurrUser == null) 
+    { 
+      Global.MainContentClass = "signInBackground";
+      Global.DrawerOpen = false;
+      Global.DrawerClass = "invisible";
+      Global.AppBarClass = "invisible";
+      Global.MainContentWidth = MaxWidth.Small;
+      nav.NavigateTo("", true); 
+    }
+    else
+    {
+      route = $"{Global.CurrUser.Role.ToLower()}dashboard";
+      await Global.GetAllAnnouncements(D424DataContextFactory);
+      await Global.GetAllUsers(D424DataContextFactory);
+      await Global.GetFlaggedMessages(D424DataContextFactory);
+
+      Global.MainContentClass = "";
+      Global.DrawerOpen = true;
+      Global.DrawerClass = "visible";
+      Global.AppBarClass = "visible";
+      Global.MainContentWidth = MaxWidth.ExtraLarge;
+      nav.NavigateTo(route, true);
+    }
+  }
+}

@@ -1,0 +1,16 @@
+﻿@page "/"
+@inject NavigationManager nav
+@inject IDbContextFactory<D424DataContext> D424DataContextFactory
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<PageTitle>Sign In | SWCSC Portal</PageTitle>
+
+<MudPaper Class="mt-16 pa-7">
+  <MudForm>
+    <MudText Align="Align.Center" Typo="Typo.h4" Class="mb-4 fw-bold">SWCSC Portal</MudText>
+    <MudTextField T="string" Placeholder="Username" Class="pb-4" @bind-Text=usernameInput/>
+    <MudTextField T="string" Placeholder="Password" InputType="InputType.Password" Class="pb-7" @bind-Text=passwordInput/>
+    <MudButton FullWidth="true" Variant="Variant.Filled" OnClick="SignInClicked" Style="@($"color:{Colors.Gray.Lighten5}; background:{Colors.Blue.Lighten2};")">Sign In</MudButton>
+  </MudForm>
+</MudPaper>
