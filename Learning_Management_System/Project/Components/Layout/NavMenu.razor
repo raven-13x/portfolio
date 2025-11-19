@@ -1,0 +1,36 @@
+﻿<MudNavMenu>
+<MudText Typo="Typo.h6" Align="Align.Center">Menu</MudText>
+@if (Global.CurrUser != null && Global.CurrUser.Role == "Admin")
+{
+  <MudNavLink Href="/admindashboard" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+  <MudNavLink Href="/announcements" Match="NavLinkMatch.Prefix">Announcements</MudNavLink>
+  <MudNavLink Href="/classmanagement" Match="NavLinkMatch.Prefix">Class Management</MudNavLink>
+  <MudNavLink Href="/messagereview" Match="NavLinkMatch.Prefix">Message Review 
+    @if (Global.FlaggedMessages.Count() > 0)
+    {
+      <MudBadge Content="@Global.FlaggedMessages.Count()" Color="Color.Secondary" Class="ml-2"></MudBadge>
+    }
+  </MudNavLink>
+  <MudNavLink Href="/schedulemanagement" Match="NavLinkMatch.Prefix">Schedule Management</MudNavLink>
+  <MudNavLink Href="/usermanagement" Match="NavLinkMatch.Prefix">User Management 
+    @if (Global.AllUsers?.Count != 0 && (Global.AllUsers.Where(u => u.Locked == "Yes").ToList()).Count() > 0)
+    {
+      <MudBadge Content="@(Global.AllUsers?.Where(u => u.Locked == "Yes").Count())" Color="Color.Secondary" Class="ml-2"></MudBadge>
+    }
+  </MudNavLink>
+}
+else
+{
+  if (Global.CurrUser != null && Global.CurrUser.Role == "Teacher") { <MudNavLink Href="/teacherdashboard" Match="NavLinkMatch.All">Dashboard</MudNavLink>}
+  else { <MudNavLink Href="/studentdashboard" Match="NavLinkMatch.All">Dashboard</MudNavLink> }
+  
+  <MudNavLink Href="/attendance" Match="NavLinkMatch.Prefix">Attendance</MudNavLink>
+  <MudNavLink Href="/classes" Match="NavLinkMatch.Prefix">Classes</MudNavLink>
+  <MudNavLink Href="/messages" Match="NavLinkMatch.Prefix">Messages
+    @if (Global.UnreadMessages.Count() > 0)
+    {
+      <MudBadge Content="@Global.UnreadMessages.Count()" Color="Color.Secondary" Class="ml-2"></MudBadge>
+    }
+  </MudNavLink>
+}
+</MudNavMenu>

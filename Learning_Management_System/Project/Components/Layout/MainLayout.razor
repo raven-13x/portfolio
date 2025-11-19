@@ -1,0 +1,58 @@
+﻿@inherits LayoutComponentBase
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+
+<MudThemeProvider Theme="CustomTheme"/>
+<MudDialogProvider FullWidth="true"/>
+<MudSnackbarProvider/>
+<MudPopoverProvider />
+
+<MudLayout>
+  <MudAppBar Class="@Global.AppBarClass">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())"/>
+    <MudText>SWCSC Portal</MudText>
+    <MudSpacer/>
+    <MudSpacer/>
+    @if (Global.CurrUser != null)
+    {
+      <MudText>@($"{Global.CurrUser.FirstName} {Global.CurrUser.LastName}")</MudText>
+    }
+    </MudAppBar>
+  <MudDrawer @bind-Open="@Global.DrawerOpen" Class="@Global.DrawerClass">
+    <NavMenu/>
+  </MudDrawer>
+  <MudMainContent class="@Global.MainContentClass">
+    <MudContainer Style="height: 90.2vh"  MaxWidth="@Global.MainContentWidth">
+      @Body
+    </MudContainer>
+  </MudMainContent>
+</MudLayout>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+  
+  /* I attempted to implement an automatic sign-out feature for security. Despite my best attempts, it seems
+     that this functionality is beyond my current capabilities within the Blazor framework. */
+  
+  void DrawerToggle()
+  {
+    Global.DrawerOpen = !Global.DrawerOpen;
+  }
+  MudTheme CustomTheme = new MudTheme()
+  {
+    PaletteLight = new PaletteLight()
+    {
+      Primary = Colors.Blue.Lighten1,
+      AppbarBackground = Colors.Blue.Lighten1,
+      Secondary = Colors.Green.Accent3,
+      Tertiary = Colors.Pink.Lighten1,
+      Background = Colors.Gray.Lighten3,
+      Info = Colors.LightBlue.Darken2,
+    }
+  };
+}
